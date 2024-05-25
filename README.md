@@ -1,10 +1,15 @@
 # A Svelte Template for Interactive Articles with Svelte
 
+For UCSD dataviz course: [https://dsc106.com/](https://dsc106.com/).
+
 This is a starter template to build an interactive article using Svelte.
 
-It comes with scrollytelling built-in, as well as an example of a responsive, d3 + svelte visualization.
+It comes with some built-in features:
 
-For UCSD dataviz course: [https://dsc106.com/](https://dsc106.com/).
+- Responsiveness
+- Support for browser-rendered math equations
+- Scrollytelling built-in
+- An example of a responsive, d3 + svelte visualization.
 
 
 ### Getting Started
