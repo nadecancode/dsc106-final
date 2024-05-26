@@ -1,8 +1,8 @@
 <section id="intro">
-  <h1 id="intro-hed">Title Of The Article</h1>
-  <h1 class="intro-sub">Subtitle of the article.</h1>
+  <h1 id="intro-hed">Explained: Type I, Type II Errors and Power</h1>
+  <h1 class="intro-sub">How strong is your Null Hypothesis?</h1>
   <h3 id="intro__date">
-    <a href="https://twitter.com/" target="_blank">Author Name</a>, Month Year
+    Allen Zhang & Brendan Kuang, June 2024
   </h3>
 </section>
 
