@@ -17,7 +17,7 @@ To get started, first clone this repository. Then:
 
 ```
 # install dependencies
-npm istall
+npm install
 ```
 
 Then run development version:
