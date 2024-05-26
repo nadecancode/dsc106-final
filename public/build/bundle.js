@@ -79,6 +79,12 @@ var app = (function () {
         }
         return -1;
     }
+
+    const globals = (typeof window !== 'undefined'
+        ? window
+        : typeof globalThis !== 'undefined'
+            ? globalThis
+            : global);
     function append(target, node) {
         target.appendChild(node);
     }
@@ -102,11 +108,11 @@ var app = (function () {
     function svg_element(name) {
         return document.createElementNS('http://www.w3.org/2000/svg', name);
     }
-    function text(data) {
+    function text$1(data) {
         return document.createTextNode(data);
     }
     function space() {
-        return text(' ');
+        return text$1(' ');
     }
     function listen(node, event, handler, options) {
         node.addEventListener(event, handler, options);
@@ -844,13 +850,13 @@ var app = (function () {
     		c: function create() {
     			section = element("section");
     			p0 = element("p");
-    			t0 = text("Lorem ipsum dolor sit amet ");
+    			t0 = text$1("Lorem ipsum dolor sit amet ");
     			a = element("a");
     			a.textContent = "random link";
-    			t2 = text(" adipisicing elit. Esse\r\n    dolor nobis\r\n    ");
+    			t2 = text$1(" adipisicing elit. Esse\r\n    dolor nobis\r\n    ");
     			span = element("span");
     			span.textContent = "bold text";
-    			t4 = text(" eius voluptate distinctio odit ut quod illo!\r\n    Nulla consequatur fugiat quia commodi aspernatur necessitatibus est doloremque\r\n    quam vitae dolorem. Vitae natus ipsum animi officiis et quis obcaecati in molestiae\r\n    aperiam, perferendis odio a ipsam nam suscipit laboriosam corporis excepturi\r\n    quisquam? Ratione delectus repellat error maxime quo beatae ullam, quod");
+    			t4 = text$1(" eius voluptate distinctio odit ut quod illo!\r\n    Nulla consequatur fugiat quia commodi aspernatur necessitatibus est doloremque\r\n    quam vitae dolorem. Vitae natus ipsum animi officiis et quis obcaecati in molestiae\r\n    aperiam, perferendis odio a ipsam nam suscipit laboriosam corporis excepturi\r\n    quisquam? Ratione delectus repellat error maxime quo beatae ullam, quod");
     			t5 = space();
     			p1 = element("p");
     			p1.textContent = "This is a trr";
@@ -18275,18 +18281,18 @@ var app = (function () {
     			h1.textContent = "Using Math Equations";
     			t1 = space();
     			p = element("p");
-    			t2 = text("There are a few different ways we can include math equations in our markup. We\r\n  can include them as inline equations: ");
+    			t2 = text$1("There are a few different ways we can include math equations in our markup. We\r\n  can include them as inline equations: ");
     			html_tag = new HtmlTag(false);
-    			t3 = text(". We can also have\r\n  equations that render as their own centered display: ");
+    			t3 = text$1(". We can also have\r\n  equations that render as their own centered display: ");
     			html_tag_1 = new HtmlTag(false);
-    			t4 = text("\r\n  We can feed the math into a static equation directly: ");
+    			t4 = text$1("\r\n  We can feed the math into a static equation directly: ");
     			html_tag_2 = new HtmlTag(false);
-    			t5 = text(". And we can update them with reactivity (try clicking the button below).\r\n  That should cover our bases.");
+    			t5 = text$1(". And we can update them with reactivity (try clicking the button below).\r\n  That should cover our bases.");
     			t6 = space();
     			div = element("div");
     			button = element("button");
-    			t7 = text("Displaying equation ");
-    			t8 = text(/*index*/ ctx[0]);
+    			t7 = text$1("Displaying equation ");
+    			t8 = text$1(/*index*/ ctx[0]);
     			attr_dev(h1, "class", "body-header");
     			add_location(h1, file$6, 16, 0, 357);
     			html_tag.a = t3;
@@ -18419,8 +18425,8 @@ var app = (function () {
 
     const pi = Math.PI,
         tau = 2 * pi,
-        epsilon = 1e-6,
-        tauEpsilon = tau - epsilon;
+        epsilon$1 = 1e-6,
+        tauEpsilon = tau - epsilon$1;
 
     function Path() {
       this._x0 = this._y0 = // start of current subpath
@@ -18471,12 +18477,12 @@ var app = (function () {
         }
 
         // Or, is (x1,y1) coincident with (x0,y0)? Do nothing.
-        else if (!(l01_2 > epsilon));
+        else if (!(l01_2 > epsilon$1));
 
         // Or, are (x0,y0), (x1,y1) and (x2,y2) collinear?
         // Equivalently, is (x1,y1) coincident with (x2,y2)?
         // Or, is the radius zero? Line to (x1,y1).
-        else if (!(Math.abs(y01 * x21 - y21 * x01) > epsilon) || !r) {
+        else if (!(Math.abs(y01 * x21 - y21 * x01) > epsilon$1) || !r) {
           this._ += "L" + (this._x1 = x1) + "," + (this._y1 = y1);
         }
 
@@ -18493,7 +18499,7 @@ var app = (function () {
               t21 = l / l21;
 
           // If the start tangent is not coincident with (x0,y0), line to.
-          if (Math.abs(t01 - 1) > epsilon) {
+          if (Math.abs(t01 - 1) > epsilon$1) {
             this._ += "L" + (x1 + t01 * x01) + "," + (y1 + t01 * y01);
           }
 
@@ -18518,7 +18524,7 @@ var app = (function () {
         }
 
         // Or, is (x0,y0) not coincident with the previous point? Line to (x0,y0).
-        else if (Math.abs(this._x1 - x0) > epsilon || Math.abs(this._y1 - y0) > epsilon) {
+        else if (Math.abs(this._x1 - x0) > epsilon$1 || Math.abs(this._y1 - y0) > epsilon$1) {
           this._ += "L" + x0 + "," + y0;
         }
 
@@ -18534,7 +18540,7 @@ var app = (function () {
         }
 
         // Is this arc non-empty? Draw an arc!
-        else if (da > epsilon) {
+        else if (da > epsilon$1) {
           this._ += "A" + r + "," + r + ",0," + (+(da >= pi)) + "," + cw + "," + (this._x1 = x + r * Math.cos(a1)) + "," + (this._y1 = y + r * Math.sin(a1));
         }
       },
@@ -18745,14 +18751,45 @@ var app = (function () {
       return (d, x) => ascending$1(f(d), x);
     }
 
-    function number$1(x) {
+    function number$2(x) {
       return x === null ? NaN : +x;
     }
 
     const ascendingBisect = bisector(ascending$1);
     const bisectRight = ascendingBisect.right;
-    bisector(number$1).center;
+    bisector(number$2).center;
     var bisect = bisectRight;
+
+    function variance(values, valueof) {
+      let count = 0;
+      let delta;
+      let mean = 0;
+      let sum = 0;
+      if (valueof === undefined) {
+        for (let value of values) {
+          if (value != null && (value = +value) >= value) {
+            delta = value - mean;
+            mean += delta / ++count;
+            sum += delta * (value - mean);
+          }
+        }
+      } else {
+        let index = -1;
+        for (let value of values) {
+          if ((value = valueof(value, ++index, values)) != null && (value = +value) >= value) {
+            delta = value - mean;
+            mean += delta / ++count;
+            sum += delta * (value - mean);
+          }
+        }
+      }
+      if (count > 1) return sum / (count - 1);
+    }
+
+    function deviation(values, valueof) {
+      const v = variance(values, valueof);
+      return v ? Math.sqrt(v) : v;
+    }
 
     var e10 = Math.sqrt(50),
         e5 = Math.sqrt(10),
@@ -18807,6 +18844,40 @@ var app = (function () {
       else if (error >= e5) step1 *= 5;
       else if (error >= e2) step1 *= 2;
       return stop < start ? -step1 : step1;
+    }
+
+    function mean(values, valueof) {
+      let count = 0;
+      let sum = 0;
+      if (valueof === undefined) {
+        for (let value of values) {
+          if (value != null && (value = +value) >= value) {
+            ++count, sum += value;
+          }
+        }
+      } else {
+        let index = -1;
+        for (let value of values) {
+          if ((value = valueof(value, ++index, values)) != null && (value = +value) >= value) {
+            ++count, sum += value;
+          }
+        }
+      }
+      if (count) return sum / count;
+    }
+
+    function range(start, stop, step) {
+      start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
+
+      var i = -1,
+          n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
+          range = new Array(n);
+
+      while (++i < n) {
+        range[i] = start + i * step;
+      }
+
+      return range;
     }
 
     function initRange(domain, range) {
@@ -19445,13 +19516,13 @@ var app = (function () {
       };
     }
 
-    function number(x) {
+    function number$1(x) {
       return +x;
     }
 
     var unit = [0, 1];
 
-    function identity$1(x) {
+    function identity$2(x) {
       return x;
     }
 
@@ -19515,14 +19586,14 @@ var app = (function () {
           transform,
           untransform,
           unknown,
-          clamp = identity$1,
+          clamp = identity$2,
           piecewise,
           output,
           input;
 
       function rescale() {
         var n = Math.min(domain.length, range.length);
-        if (clamp !== identity$1) clamp = clamper(domain[0], domain[n - 1]);
+        if (clamp !== identity$2) clamp = clamper(domain[0], domain[n - 1]);
         piecewise = n > 2 ? polymap : bimap;
         output = input = null;
         return scale;
@@ -19537,7 +19608,7 @@ var app = (function () {
       };
 
       scale.domain = function(_) {
-        return arguments.length ? (domain = Array.from(_, number), rescale()) : domain.slice();
+        return arguments.length ? (domain = Array.from(_, number$1), rescale()) : domain.slice();
       };
 
       scale.range = function(_) {
@@ -19549,7 +19620,7 @@ var app = (function () {
       };
 
       scale.clamp = function(_) {
-        return arguments.length ? (clamp = _ ? true : identity$1, rescale()) : clamp !== identity$1;
+        return arguments.length ? (clamp = _ ? true : identity$2, rescale()) : clamp !== identity$2;
       };
 
       scale.interpolate = function(_) {
@@ -19567,7 +19638,7 @@ var app = (function () {
     }
 
     function continuous() {
-      return transformer()(identity$1, identity$1);
+      return transformer()(identity$2, identity$2);
     }
 
     function formatDecimal(x) {
@@ -19723,7 +19794,7 @@ var app = (function () {
       "x": (x) => Math.round(x).toString(16)
     };
 
-    function identity(x) {
+    function identity$1(x) {
       return x;
     }
 
@@ -19731,11 +19802,11 @@ var app = (function () {
         prefixes = ["y","z","a","f","p","n","µ","m","","k","M","G","T","P","E","Z","Y"];
 
     function formatLocale(locale) {
-      var group = locale.grouping === undefined || locale.thousands === undefined ? identity : formatGroup(map.call(locale.grouping, Number), locale.thousands + ""),
+      var group = locale.grouping === undefined || locale.thousands === undefined ? identity$1 : formatGroup(map.call(locale.grouping, Number), locale.thousands + ""),
           currencyPrefix = locale.currency === undefined ? "" : locale.currency[0] + "",
           currencySuffix = locale.currency === undefined ? "" : locale.currency[1] + "",
           decimal = locale.decimal === undefined ? "." : locale.decimal + "",
-          numerals = locale.numerals === undefined ? identity : formatNumerals(map.call(locale.numerals, String)),
+          numerals = locale.numerals === undefined ? identity$1 : formatNumerals(map.call(locale.numerals, String)),
           percent = locale.percent === undefined ? "%" : locale.percent + "",
           minus = locale.minus === undefined ? "−" : locale.minus + "",
           nan = locale.nan === undefined ? "NaN" : locale.nan + "";
@@ -20268,789 +20339,194 @@ var app = (function () {
       },
     ];
 
-    /* src\Components\LineChart.svelte generated by Svelte v3.59.2 */
-    const file$5 = "src\\Components\\LineChart.svelte";
+    var EOL = {},
+        EOF = {},
+        QUOTE = 34,
+        NEWLINE = 10,
+        RETURN = 13;
 
-    function get_each_context$2(ctx, list, i) {
-    	const child_ctx = ctx.slice();
-    	child_ctx[11] = list[i];
-    	return child_ctx;
+    function objectConverter(columns) {
+      return new Function("d", "return {" + columns.map(function(name, i) {
+        return JSON.stringify(name) + ": d[" + i + "] || \"\"";
+      }).join(",") + "}");
     }
 
-    function get_each_context_1(ctx, list, i) {
-    	const child_ctx = ctx.slice();
-    	child_ctx[11] = list[i];
-    	return child_ctx;
+    function customConverter(columns, f) {
+      var object = objectConverter(columns);
+      return function(row, i) {
+        return f(object(row), i, columns);
+      };
     }
 
-    // (52:4) {#each [0.2, 0.4, 0.6, 0.8, 1.0] as tick}
-    function create_each_block_1(ctx) {
-    	let g;
-    	let line_1;
-    	let line_1_x__value;
-    	let text_1;
-    	let t_value = /*formatter*/ ctx[6](/*tick*/ ctx[11]) + "";
-    	let t;
-    	let g_transform_value;
+    // Compute unique columns in order of discovery.
+    function inferColumns(rows) {
+      var columnSet = Object.create(null),
+          columns = [];
 
-    	const block = {
-    		c: function create() {
-    			g = svg_element("g");
-    			line_1 = svg_element("line");
-    			text_1 = svg_element("text");
-    			t = text(t_value);
-    			attr_dev(line_1, "class", "y-axis-line svelte-11zu33o");
-    			attr_dev(line_1, "x1", "0");
-    			attr_dev(line_1, "x2", line_1_x__value = /*width*/ ctx[1] - /*margin*/ ctx[7].right - /*margin*/ ctx[7].left);
-    			attr_dev(line_1, "y1", "0");
-    			attr_dev(line_1, "y2", "0");
-    			attr_dev(line_1, "stroke", "black");
-    			add_location(line_1, file$5, 54, 8, 1636);
-    			attr_dev(text_1, "class", "error-axis-text svelte-11zu33o");
-    			attr_dev(text_1, "y", "0");
-    			attr_dev(text_1, "text-anchor", "end");
-    			attr_dev(text_1, "dominant-baseline", "middle");
-    			add_location(text_1, file$5, 62, 8, 1831);
-    			attr_dev(g, "transform", g_transform_value = `translate(${/*margin*/ ctx[7].left - 5} ${/*accuracyScale*/ ctx[3](/*tick*/ ctx[11]) + 0})`);
-    			add_location(g, file$5, 52, 6, 1495);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, g, anchor);
-    			append_dev(g, line_1);
-    			append_dev(g, text_1);
-    			append_dev(text_1, t);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*width*/ 2 && line_1_x__value !== (line_1_x__value = /*width*/ ctx[1] - /*margin*/ ctx[7].right - /*margin*/ ctx[7].left)) {
-    				attr_dev(line_1, "x2", line_1_x__value);
-    			}
+      rows.forEach(function(row) {
+        for (var column in row) {
+          if (!(column in columnSet)) {
+            columns.push(columnSet[column] = column);
+          }
+        }
+      });
 
-    			if (dirty & /*accuracyScale*/ 8 && g_transform_value !== (g_transform_value = `translate(${/*margin*/ ctx[7].left - 5} ${/*accuracyScale*/ ctx[3](/*tick*/ ctx[11]) + 0})`)) {
-    				attr_dev(g, "transform", g_transform_value);
-    			}
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(g);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_each_block_1.name,
-    		type: "each",
-    		source: "(52:4) {#each [0.2, 0.4, 0.6, 0.8, 1.0] as tick}",
-    		ctx
-    	});
-
-    	return block;
+      return columns;
     }
 
-    // (117:4) {#each xScale.ticks() as tick}
-    function create_each_block$2(ctx) {
-    	let g;
-    	let text_1;
-    	let t_value = /*tick*/ ctx[11] + "";
-    	let t;
-    	let g_transform_value;
-
-    	const block = {
-    		c: function create() {
-    			g = svg_element("g");
-    			text_1 = svg_element("text");
-    			t = text(t_value);
-    			attr_dev(text_1, "class", "error-axis-text svelte-11zu33o");
-    			attr_dev(text_1, "y", "15");
-    			attr_dev(text_1, "text-anchor", "end");
-    			add_location(text_1, file$5, 118, 8, 3446);
-    			attr_dev(g, "transform", g_transform_value = `translate(${/*xScale*/ ctx[2](/*tick*/ ctx[11]) + 0} ${/*height*/ ctx[0] - /*margin*/ ctx[7].bottom})`);
-    			add_location(g, file$5, 117, 6, 3362);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, g, anchor);
-    			append_dev(g, text_1);
-    			append_dev(text_1, t);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*xScale*/ 4 && t_value !== (t_value = /*tick*/ ctx[11] + "")) set_data_dev(t, t_value);
-
-    			if (dirty & /*xScale, height*/ 5 && g_transform_value !== (g_transform_value = `translate(${/*xScale*/ ctx[2](/*tick*/ ctx[11]) + 0} ${/*height*/ ctx[0] - /*margin*/ ctx[7].bottom})`)) {
-    				attr_dev(g, "transform", g_transform_value);
-    			}
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(g);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_each_block$2.name,
-    		type: "each",
-    		source: "(117:4) {#each xScale.ticks() as tick}",
-    		ctx
-    	});
-
-    	return block;
+    function pad(value, width) {
+      var s = value + "", length = s.length;
+      return length < width ? new Array(width - length + 1).join(0) + s : s;
     }
 
-    function create_fragment$6(ctx) {
-    	let h1;
-    	let t1;
-    	let p;
-    	let t3;
-    	let div;
-    	let svg;
-    	let line0;
-    	let line0_y__value;
-    	let line0_y__value_1;
-    	let line1;
-    	let line1_y__value_1;
-    	let path0;
-    	let path0_d_value;
-    	let path1;
-    	let path1_d_value;
-    	let path2;
-    	let path2_d_value;
-    	let path3;
-    	let path3_d_value;
-    	let text0;
-    	let t4;
-    	let text0_y_value;
-    	let text0_x_value;
-    	let text1;
-    	let t5;
-    	let text1_x_value;
-    	let svg_width_value;
-    	let svg_height_value;
-    	let div_resize_listener;
-    	let each_value_1 = [0.2, 0.4, 0.6, 0.8, 1.0];
-    	validate_each_argument(each_value_1);
-    	let each_blocks_1 = [];
-
-    	for (let i = 0; i < 5; i += 1) {
-    		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
-    	}
-
-    	let each_value = /*xScale*/ ctx[2].ticks();
-    	validate_each_argument(each_value);
-    	let each_blocks = [];
-
-    	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
-    	}
-
-    	const block = {
-    		c: function create() {
-    			h1 = element("h1");
-    			h1.textContent = "Responsive, Static Chart Example";
-    			t1 = space();
-    			p = element("p");
-    			p.textContent = "This component is an example of a responsive chart built with Svelte and\r\n  D3.js.";
-    			t3 = space();
-    			div = element("div");
-    			svg = svg_element("svg");
-
-    			for (let i = 0; i < 5; i += 1) {
-    				each_blocks_1[i].c();
-    			}
-
-    			line0 = svg_element("line");
-    			line1 = svg_element("line");
-    			path0 = svg_element("path");
-    			path1 = svg_element("path");
-    			path2 = svg_element("path");
-    			path3 = svg_element("path");
-    			text0 = svg_element("text");
-    			t4 = text("Decision Boundary Threshold");
-    			text1 = svg_element("text");
-    			t5 = text("Score");
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].c();
-    			}
-
-    			attr_dev(h1, "class", "body-header");
-    			add_location(h1, file$5, 39, 0, 1053);
-    			attr_dev(p, "class", "body-text");
-    			add_location(p, file$5, 40, 0, 1116);
-    			attr_dev(line0, "class", "error-axis-line");
-    			attr_dev(line0, "y1", line0_y__value = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom);
-    			attr_dev(line0, "y2", line0_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom);
-    			attr_dev(line0, "x1", /*margin*/ ctx[7].left);
-    			attr_dev(line0, "x2", /*width*/ ctx[1]);
-    			attr_dev(line0, "stroke", "black");
-    			attr_dev(line0, "stroke-width", "2");
-    			add_location(line0, file$5, 73, 4, 2115);
-    			attr_dev(line1, "class", "error-axis-line");
-    			attr_dev(line1, "y1", /*margin*/ ctx[7].top);
-    			attr_dev(line1, "y2", line1_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom);
-    			attr_dev(line1, "x1", /*margin*/ ctx[7].left);
-    			attr_dev(line1, "x2", /*margin*/ ctx[7].left);
-    			attr_dev(line1, "stroke", "black");
-    			attr_dev(line1, "stroke-width", "2");
-    			add_location(line1, file$5, 84, 4, 2398);
-    			attr_dev(path0, "class", "outline-line svelte-11zu33o");
-    			attr_dev(path0, "d", path0_d_value = /*accuracyPath*/ ctx[5](errorData));
-    			add_location(path0, file$5, 94, 4, 2608);
-    			attr_dev(path1, "class", "path-line svelte-11zu33o");
-    			attr_dev(path1, "d", path1_d_value = /*accuracyPath*/ ctx[5](errorData));
-    			attr_dev(path1, "stroke", "#c9208a");
-    			add_location(path1, file$5, 95, 4, 2676);
-    			attr_dev(path2, "class", "outline-line svelte-11zu33o");
-    			attr_dev(path2, "d", path2_d_value = /*precisionPath*/ ctx[4](errorData));
-    			add_location(path2, file$5, 96, 4, 2758);
-    			attr_dev(path3, "class", "path-line svelte-11zu33o");
-    			attr_dev(path3, "d", path3_d_value = /*precisionPath*/ ctx[4](errorData));
-    			attr_dev(path3, "stroke", "#ab00d6");
-    			add_location(path3, file$5, 97, 4, 2827);
-    			attr_dev(text0, "class", "error-axis-label svelte-11zu33o");
-    			attr_dev(text0, "y", text0_y_value = /*height*/ ctx[0] + /*margin*/ ctx[7].bottom);
-    			attr_dev(text0, "x", text0_x_value = (/*width*/ ctx[1] + /*margin*/ ctx[7].left) / 2);
-    			attr_dev(text0, "text-anchor", "middle");
-    			add_location(text0, file$5, 101, 4, 2944);
-    			attr_dev(text1, "class", "error-axis-label svelte-11zu33o");
-    			attr_dev(text1, "y", /*margin*/ ctx[7].left / 3);
-    			attr_dev(text1, "x", text1_x_value = -(/*height*/ ctx[0] / 2));
-    			attr_dev(text1, "text-anchor", "middle");
-    			attr_dev(text1, "transform", "rotate(-90)");
-    			add_location(text1, file$5, 107, 4, 3127);
-    			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[1] + /*margin*/ ctx[7].left + /*margin*/ ctx[7].right);
-    			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[0] + /*margin*/ ctx[7].top + /*margin*/ ctx[7].bottom);
-    			add_location(svg, file$5, 46, 2, 1311);
-    			attr_dev(div, "id", "error-chart");
-    			attr_dev(div, "class", "svelte-11zu33o");
-    			add_render_callback(() => /*div_elementresize_handler*/ ctx[9].call(div));
-    			add_location(div, file$5, 45, 0, 1233);
-    		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, h1, anchor);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, p, anchor);
-    			insert_dev(target, t3, anchor);
-    			insert_dev(target, div, anchor);
-    			append_dev(div, svg);
-
-    			for (let i = 0; i < 5; i += 1) {
-    				if (each_blocks_1[i]) {
-    					each_blocks_1[i].m(svg, null);
-    				}
-    			}
-
-    			append_dev(svg, line0);
-    			append_dev(svg, line1);
-    			append_dev(svg, path0);
-    			append_dev(svg, path1);
-    			append_dev(svg, path2);
-    			append_dev(svg, path3);
-    			append_dev(svg, text0);
-    			append_dev(text0, t4);
-    			append_dev(svg, text1);
-    			append_dev(text1, t5);
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				if (each_blocks[i]) {
-    					each_blocks[i].m(svg, null);
-    				}
-    			}
-
-    			div_resize_listener = add_iframe_resize_listener(div, /*div_elementresize_handler*/ ctx[9].bind(div));
-    		},
-    		p: function update(ctx, [dirty]) {
-    			if (dirty & /*margin, accuracyScale, formatter, width*/ 202) {
-    				each_value_1 = [0.2, 0.4, 0.6, 0.8, 1.0];
-    				validate_each_argument(each_value_1);
-    				let i;
-
-    				for (i = 0; i < 5; i += 1) {
-    					const child_ctx = get_each_context_1(ctx, each_value_1, i);
-
-    					if (each_blocks_1[i]) {
-    						each_blocks_1[i].p(child_ctx, dirty);
-    					} else {
-    						each_blocks_1[i] = create_each_block_1(child_ctx);
-    						each_blocks_1[i].c();
-    						each_blocks_1[i].m(svg, line0);
-    					}
-    				}
-
-    				for (; i < 5; i += 1) {
-    					each_blocks_1[i].d(1);
-    				}
-    			}
-
-    			if (dirty & /*height*/ 1 && line0_y__value !== (line0_y__value = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom)) {
-    				attr_dev(line0, "y1", line0_y__value);
-    			}
-
-    			if (dirty & /*height*/ 1 && line0_y__value_1 !== (line0_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom)) {
-    				attr_dev(line0, "y2", line0_y__value_1);
-    			}
-
-    			if (dirty & /*width*/ 2) {
-    				attr_dev(line0, "x2", /*width*/ ctx[1]);
-    			}
-
-    			if (dirty & /*height*/ 1 && line1_y__value_1 !== (line1_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom)) {
-    				attr_dev(line1, "y2", line1_y__value_1);
-    			}
-
-    			if (dirty & /*accuracyPath*/ 32 && path0_d_value !== (path0_d_value = /*accuracyPath*/ ctx[5](errorData))) {
-    				attr_dev(path0, "d", path0_d_value);
-    			}
-
-    			if (dirty & /*accuracyPath*/ 32 && path1_d_value !== (path1_d_value = /*accuracyPath*/ ctx[5](errorData))) {
-    				attr_dev(path1, "d", path1_d_value);
-    			}
-
-    			if (dirty & /*precisionPath*/ 16 && path2_d_value !== (path2_d_value = /*precisionPath*/ ctx[4](errorData))) {
-    				attr_dev(path2, "d", path2_d_value);
-    			}
-
-    			if (dirty & /*precisionPath*/ 16 && path3_d_value !== (path3_d_value = /*precisionPath*/ ctx[4](errorData))) {
-    				attr_dev(path3, "d", path3_d_value);
-    			}
-
-    			if (dirty & /*height*/ 1 && text0_y_value !== (text0_y_value = /*height*/ ctx[0] + /*margin*/ ctx[7].bottom)) {
-    				attr_dev(text0, "y", text0_y_value);
-    			}
-
-    			if (dirty & /*width*/ 2 && text0_x_value !== (text0_x_value = (/*width*/ ctx[1] + /*margin*/ ctx[7].left) / 2)) {
-    				attr_dev(text0, "x", text0_x_value);
-    			}
-
-    			if (dirty & /*height*/ 1 && text1_x_value !== (text1_x_value = -(/*height*/ ctx[0] / 2))) {
-    				attr_dev(text1, "x", text1_x_value);
-    			}
-
-    			if (dirty & /*xScale, height, margin*/ 133) {
-    				each_value = /*xScale*/ ctx[2].ticks();
-    				validate_each_argument(each_value);
-    				let i;
-
-    				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context$2(ctx, each_value, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(child_ctx, dirty);
-    					} else {
-    						each_blocks[i] = create_each_block$2(child_ctx);
-    						each_blocks[i].c();
-    						each_blocks[i].m(svg, null);
-    					}
-    				}
-
-    				for (; i < each_blocks.length; i += 1) {
-    					each_blocks[i].d(1);
-    				}
-
-    				each_blocks.length = each_value.length;
-    			}
-
-    			if (dirty & /*width*/ 2 && svg_width_value !== (svg_width_value = /*width*/ ctx[1] + /*margin*/ ctx[7].left + /*margin*/ ctx[7].right)) {
-    				attr_dev(svg, "width", svg_width_value);
-    			}
-
-    			if (dirty & /*height*/ 1 && svg_height_value !== (svg_height_value = /*height*/ ctx[0] + /*margin*/ ctx[7].top + /*margin*/ ctx[7].bottom)) {
-    				attr_dev(svg, "height", svg_height_value);
-    			}
-    		},
-    		i: noop,
-    		o: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(h1);
-    			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(p);
-    			if (detaching) detach_dev(t3);
-    			if (detaching) detach_dev(div);
-    			destroy_each(each_blocks_1, detaching);
-    			destroy_each(each_blocks, detaching);
-    			div_resize_listener();
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_fragment$6.name,
-    		type: "component",
-    		source: "",
-    		ctx
-    	});
-
-    	return block;
+    function formatYear(year) {
+      return year < 0 ? "-" + pad(-year, 6)
+        : year > 9999 ? "+" + pad(year, 6)
+        : pad(year, 4);
     }
 
-    function instance$6($$self, $$props, $$invalidate) {
-    	let xScale;
-    	let accuracyScale;
-    	let precisionScale;
-    	let accuracyPath;
-    	let precisionPath;
-    	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots('LineChart', slots, []);
-    	const formatter = format(".0%");
-    	let height = 500;
-    	let width = 500;
-    	const mobile = window.innerWidth <= 700;
-
-    	const margin = {
-    		top: mobile ? 40 : 50,
-    		bottom: mobile ? 10 : 25,
-    		left: mobile ? 0 : 80,
-    		right: mobile ? 0 : 10
-    	};
-
-    	const writable_props = [];
-
-    	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<LineChart> was created with unknown prop '${key}'`);
-    	});
-
-    	function div_elementresize_handler() {
-    		width = this.offsetWidth;
-    		height = this.offsetHeight;
-    		$$invalidate(1, width);
-    		$$invalidate(0, height);
-    	}
-
-    	$$self.$capture_state = () => ({
-    		line,
-    		curveStep,
-    		scaleLinear: linear,
-    		errorData,
-    		format,
-    		formatter,
-    		height,
-    		width,
-    		mobile,
-    		margin,
-    		precisionScale,
-    		xScale,
-    		precisionPath,
-    		accuracyScale,
-    		accuracyPath
-    	});
-
-    	$$self.$inject_state = $$props => {
-    		if ('height' in $$props) $$invalidate(0, height = $$props.height);
-    		if ('width' in $$props) $$invalidate(1, width = $$props.width);
-    		if ('precisionScale' in $$props) $$invalidate(8, precisionScale = $$props.precisionScale);
-    		if ('xScale' in $$props) $$invalidate(2, xScale = $$props.xScale);
-    		if ('precisionPath' in $$props) $$invalidate(4, precisionPath = $$props.precisionPath);
-    		if ('accuracyScale' in $$props) $$invalidate(3, accuracyScale = $$props.accuracyScale);
-    		if ('accuracyPath' in $$props) $$invalidate(5, accuracyPath = $$props.accuracyPath);
-    	};
-
-    	if ($$props && "$$inject" in $$props) {
-    		$$self.$inject_state($$props.$$inject);
-    	}
-
-    	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*width*/ 2) {
-    			$$invalidate(2, xScale = linear().domain([0, 14.4]).range([margin.left, width - margin.right]));
-    		}
-
-    		if ($$self.$$.dirty & /*height*/ 1) {
-    			$$invalidate(3, accuracyScale = linear().domain([0.0, 1]).range([height - margin.bottom, margin.top]));
-    		}
-
-    		if ($$self.$$.dirty & /*height*/ 1) {
-    			$$invalidate(8, precisionScale = linear().domain([0.0, 1]).range([height - margin.bottom, margin.top]));
-    		}
-
-    		if ($$self.$$.dirty & /*xScale, accuracyScale*/ 12) {
-    			$$invalidate(5, accuracyPath = line().x(d => xScale(d.thresh)).y(d => accuracyScale(d.accuracy)).curve(curveStep));
-    		}
-
-    		if ($$self.$$.dirty & /*xScale, precisionScale*/ 260) {
-    			$$invalidate(4, precisionPath = line().x(d => xScale(d.thresh)).y(d => precisionScale(d.precision)).curve(curveStep));
-    		}
-    	};
-
-    	return [
-    		height,
-    		width,
-    		xScale,
-    		accuracyScale,
-    		precisionPath,
-    		accuracyPath,
-    		formatter,
-    		margin,
-    		precisionScale,
-    		div_elementresize_handler
-    	];
+    function formatDate(date) {
+      var hours = date.getUTCHours(),
+          minutes = date.getUTCMinutes(),
+          seconds = date.getUTCSeconds(),
+          milliseconds = date.getUTCMilliseconds();
+      return isNaN(date) ? "Invalid Date"
+          : formatYear(date.getUTCFullYear()) + "-" + pad(date.getUTCMonth() + 1, 2) + "-" + pad(date.getUTCDate(), 2)
+          + (milliseconds ? "T" + pad(hours, 2) + ":" + pad(minutes, 2) + ":" + pad(seconds, 2) + "." + pad(milliseconds, 3) + "Z"
+          : seconds ? "T" + pad(hours, 2) + ":" + pad(minutes, 2) + ":" + pad(seconds, 2) + "Z"
+          : minutes || hours ? "T" + pad(hours, 2) + ":" + pad(minutes, 2) + "Z"
+          : "");
     }
 
-    class LineChart extends SvelteComponentDev {
-    	constructor(options) {
-    		super(options);
-    		init(this, options, instance$6, create_fragment$6, safe_not_equal, {});
+    function dsvFormat(delimiter) {
+      var reFormat = new RegExp("[\"" + delimiter + "\n\r]"),
+          DELIMITER = delimiter.charCodeAt(0);
 
-    		dispatch_dev("SvelteRegisterComponent", {
-    			component: this,
-    			tagName: "LineChart",
-    			options,
-    			id: create_fragment$6.name
-    		});
-    	}
+      function parse(text, f) {
+        var convert, columns, rows = parseRows(text, function(row, i) {
+          if (convert) return convert(row, i - 1);
+          columns = row, convert = f ? customConverter(row, f) : objectConverter(row);
+        });
+        rows.columns = columns || [];
+        return rows;
+      }
+
+      function parseRows(text, f) {
+        var rows = [], // output rows
+            N = text.length,
+            I = 0, // current character index
+            n = 0, // current line number
+            t, // current token
+            eof = N <= 0, // current token followed by EOF?
+            eol = false; // current token followed by EOL?
+
+        // Strip the trailing newline.
+        if (text.charCodeAt(N - 1) === NEWLINE) --N;
+        if (text.charCodeAt(N - 1) === RETURN) --N;
+
+        function token() {
+          if (eof) return EOF;
+          if (eol) return eol = false, EOL;
+
+          // Unescape quotes.
+          var i, j = I, c;
+          if (text.charCodeAt(j) === QUOTE) {
+            while (I++ < N && text.charCodeAt(I) !== QUOTE || text.charCodeAt(++I) === QUOTE);
+            if ((i = I) >= N) eof = true;
+            else if ((c = text.charCodeAt(I++)) === NEWLINE) eol = true;
+            else if (c === RETURN) { eol = true; if (text.charCodeAt(I) === NEWLINE) ++I; }
+            return text.slice(j + 1, i - 1).replace(/""/g, "\"");
+          }
+
+          // Find next delimiter or newline.
+          while (I < N) {
+            if ((c = text.charCodeAt(i = I++)) === NEWLINE) eol = true;
+            else if (c === RETURN) { eol = true; if (text.charCodeAt(I) === NEWLINE) ++I; }
+            else if (c !== DELIMITER) continue;
+            return text.slice(j, i);
+          }
+
+          // Return last token before EOF.
+          return eof = true, text.slice(j, N);
+        }
+
+        while ((t = token()) !== EOF) {
+          var row = [];
+          while (t !== EOL && t !== EOF) row.push(t), t = token();
+          if (f && (row = f(row, n++)) == null) continue;
+          rows.push(row);
+        }
+
+        return rows;
+      }
+
+      function preformatBody(rows, columns) {
+        return rows.map(function(row) {
+          return columns.map(function(column) {
+            return formatValue(row[column]);
+          }).join(delimiter);
+        });
+      }
+
+      function format(rows, columns) {
+        if (columns == null) columns = inferColumns(rows);
+        return [columns.map(formatValue).join(delimiter)].concat(preformatBody(rows, columns)).join("\n");
+      }
+
+      function formatBody(rows, columns) {
+        if (columns == null) columns = inferColumns(rows);
+        return preformatBody(rows, columns).join("\n");
+      }
+
+      function formatRows(rows) {
+        return rows.map(formatRow).join("\n");
+      }
+
+      function formatRow(row) {
+        return row.map(formatValue).join(delimiter);
+      }
+
+      function formatValue(value) {
+        return value == null ? ""
+            : value instanceof Date ? formatDate(value)
+            : reFormat.test(value += "") ? "\"" + value.replace(/"/g, "\"\"") + "\""
+            : value;
+      }
+
+      return {
+        parse: parse,
+        parseRows: parseRows,
+        format: format,
+        formatBody: formatBody,
+        formatRows: formatRows,
+        formatRow: formatRow,
+        formatValue: formatValue
+      };
     }
 
-    /* src\Components\Scrolly.svelte generated by Svelte v3.59.2 */
-    const file$4 = "src\\Components\\Scrolly.svelte";
+    var csv$1 = dsvFormat(",");
 
-    function create_fragment$5(ctx) {
-    	let div;
-    	let current;
-    	const default_slot_template = /*#slots*/ ctx[7].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[6], null);
+    var csvParse = csv$1.parse;
 
-    	const block = {
-    		c: function create() {
-    			div = element("div");
-    			if (default_slot) default_slot.c();
-    			add_location(div, file$4, 80, 2, 2222);
-    		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-
-    			if (default_slot) {
-    				default_slot.m(div, null);
-    			}
-
-    			/*div_binding*/ ctx[8](div);
-    			current = true;
-    		},
-    		p: function update(ctx, [dirty]) {
-    			if (default_slot) {
-    				if (default_slot.p && (!current || dirty & /*$$scope*/ 64)) {
-    					update_slot_base(
-    						default_slot,
-    						default_slot_template,
-    						ctx,
-    						/*$$scope*/ ctx[6],
-    						!current
-    						? get_all_dirty_from_scope(/*$$scope*/ ctx[6])
-    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[6], dirty, null),
-    						null
-    					);
-    				}
-    			}
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(default_slot, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(default_slot, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
-    			if (default_slot) default_slot.d(detaching);
-    			/*div_binding*/ ctx[8](null);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_fragment$5.name,
-    		type: "component",
-    		source: "",
-    		ctx
-    	});
-
-    	return block;
+    function responseText(response) {
+      if (!response.ok) throw new Error(response.status + " " + response.statusText);
+      return response.text();
     }
 
-    function instance$5($$self, $$props, $$invalidate) {
-    	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots('Scrolly', slots, ['default']);
-    	let { root = null } = $$props;
-    	let { top = 0 } = $$props;
-    	let { bottom = 0 } = $$props;
-    	let { increments = 100 } = $$props;
-    	let { value = undefined } = $$props;
-    	const steps = [];
-    	const threshold = [];
-    	let nodes = [];
-    	let intersectionObservers = [];
-    	let container;
-
-    	const update = () => {
-    		if (!nodes.length) return;
-    		nodes.forEach(createObserver);
-    	};
-
-    	const mostInView = () => {
-    		let maxRatio = 0;
-    		let maxIndex = 0;
-
-    		for (let i = 0; i < steps.length; i++) {
-    			if (steps[i] > maxRatio) {
-    				maxRatio = steps[i];
-    				maxIndex = i;
-    			}
-    		}
-
-    		if (maxRatio > 0) $$invalidate(1, value = maxIndex); else $$invalidate(1, value = undefined);
-    	};
-
-    	const createObserver = (node, index) => {
-    		const handleIntersect = e => {
-    			e[0].isIntersecting;
-    			const ratio = e[0].intersectionRatio;
-    			steps[index] = ratio;
-    			mostInView();
-    		};
-
-    		const marginTop = top ? top * -1 : 0;
-    		const marginBottom = bottom ? bottom * -1 : 0;
-    		const rootMargin = `${marginTop}px 0px ${marginBottom}px 0px`;
-    		const options = { root, rootMargin, threshold };
-    		if (intersectionObservers[index]) intersectionObservers[index].disconnect();
-    		const io = new IntersectionObserver(handleIntersect, options);
-    		io.observe(node);
-    		intersectionObservers[index] = io;
-    	};
-
-    	onMount(() => {
-    		for (let i = 0; i < increments + 1; i++) {
-    			threshold.push(i / increments);
-    		}
-
-    		nodes = container.querySelectorAll(":scope > *");
-    		update();
-    	});
-
-    	const writable_props = ['root', 'top', 'bottom', 'increments', 'value'];
-
-    	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Scrolly> was created with unknown prop '${key}'`);
-    	});
-
-    	function div_binding($$value) {
-    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
-    			container = $$value;
-    			$$invalidate(0, container);
-    		});
-    	}
-
-    	$$self.$$set = $$props => {
-    		if ('root' in $$props) $$invalidate(2, root = $$props.root);
-    		if ('top' in $$props) $$invalidate(3, top = $$props.top);
-    		if ('bottom' in $$props) $$invalidate(4, bottom = $$props.bottom);
-    		if ('increments' in $$props) $$invalidate(5, increments = $$props.increments);
-    		if ('value' in $$props) $$invalidate(1, value = $$props.value);
-    		if ('$$scope' in $$props) $$invalidate(6, $$scope = $$props.$$scope);
-    	};
-
-    	$$self.$capture_state = () => ({
-    		onMount,
-    		root,
-    		top,
-    		bottom,
-    		increments,
-    		value,
-    		steps,
-    		threshold,
-    		nodes,
-    		intersectionObservers,
-    		container,
-    		update,
-    		mostInView,
-    		createObserver
-    	});
-
-    	$$self.$inject_state = $$props => {
-    		if ('root' in $$props) $$invalidate(2, root = $$props.root);
-    		if ('top' in $$props) $$invalidate(3, top = $$props.top);
-    		if ('bottom' in $$props) $$invalidate(4, bottom = $$props.bottom);
-    		if ('increments' in $$props) $$invalidate(5, increments = $$props.increments);
-    		if ('value' in $$props) $$invalidate(1, value = $$props.value);
-    		if ('nodes' in $$props) nodes = $$props.nodes;
-    		if ('intersectionObservers' in $$props) intersectionObservers = $$props.intersectionObservers;
-    		if ('container' in $$props) $$invalidate(0, container = $$props.container);
-    	};
-
-    	if ($$props && "$$inject" in $$props) {
-    		$$self.$inject_state($$props.$$inject);
-    	}
-
-    	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*top, bottom*/ 24) {
-    			(update());
-    		}
-    	};
-
-    	return [container, value, root, top, bottom, increments, $$scope, slots, div_binding];
+    function text(input, init) {
+      return fetch(input, init).then(responseText);
     }
 
-    class Scrolly extends SvelteComponentDev {
-    	constructor(options) {
-    		super(options);
-
-    		init(this, options, instance$5, create_fragment$5, safe_not_equal, {
-    			root: 2,
-    			top: 3,
-    			bottom: 4,
-    			increments: 5,
-    			value: 1
-    		});
-
-    		dispatch_dev("SvelteRegisterComponent", {
-    			component: this,
-    			tagName: "Scrolly",
-    			options,
-    			id: create_fragment$5.name
-    		});
-    	}
-
-    	get root() {
-    		throw new Error("<Scrolly>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set root(value) {
-    		throw new Error("<Scrolly>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get top() {
-    		throw new Error("<Scrolly>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set top(value) {
-    		throw new Error("<Scrolly>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get bottom() {
-    		throw new Error("<Scrolly>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set bottom(value) {
-    		throw new Error("<Scrolly>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get increments() {
-    		throw new Error("<Scrolly>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set increments(value) {
-    		throw new Error("<Scrolly>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get value() {
-    		throw new Error("<Scrolly>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set value(value) {
-    		throw new Error("<Scrolly>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
+    function dsvParse(parse) {
+      return function(input, init, row) {
+        if (arguments.length === 2 && typeof init === "function") row = init, init = undefined;
+        return text(input, init).then(function(response) {
+          return parse(response, row);
+        });
+      };
     }
+
+    var csv = dsvParse(csvParse);
 
     var xhtml = "http://www.w3.org/1999/xhtml";
 
@@ -21955,6 +21431,1052 @@ var app = (function () {
           : new Selection([selector == null ? [] : array(selector)], root);
     }
 
+    var slice = Array.prototype.slice;
+
+    function identity(x) {
+      return x;
+    }
+
+    var top = 1,
+        right = 2,
+        bottom = 3,
+        left = 4,
+        epsilon = 1e-6;
+
+    function translateX(x) {
+      return "translate(" + x + ",0)";
+    }
+
+    function translateY(y) {
+      return "translate(0," + y + ")";
+    }
+
+    function number(scale) {
+      return d => +scale(d);
+    }
+
+    function center(scale, offset) {
+      offset = Math.max(0, scale.bandwidth() - offset * 2) / 2;
+      if (scale.round()) offset = Math.round(offset);
+      return d => +scale(d) + offset;
+    }
+
+    function entering() {
+      return !this.__axis;
+    }
+
+    function axis(orient, scale) {
+      var tickArguments = [],
+          tickValues = null,
+          tickFormat = null,
+          tickSizeInner = 6,
+          tickSizeOuter = 6,
+          tickPadding = 3,
+          offset = typeof window !== "undefined" && window.devicePixelRatio > 1 ? 0 : 0.5,
+          k = orient === top || orient === left ? -1 : 1,
+          x = orient === left || orient === right ? "x" : "y",
+          transform = orient === top || orient === bottom ? translateX : translateY;
+
+      function axis(context) {
+        var values = tickValues == null ? (scale.ticks ? scale.ticks.apply(scale, tickArguments) : scale.domain()) : tickValues,
+            format = tickFormat == null ? (scale.tickFormat ? scale.tickFormat.apply(scale, tickArguments) : identity) : tickFormat,
+            spacing = Math.max(tickSizeInner, 0) + tickPadding,
+            range = scale.range(),
+            range0 = +range[0] + offset,
+            range1 = +range[range.length - 1] + offset,
+            position = (scale.bandwidth ? center : number)(scale.copy(), offset),
+            selection = context.selection ? context.selection() : context,
+            path = selection.selectAll(".domain").data([null]),
+            tick = selection.selectAll(".tick").data(values, scale).order(),
+            tickExit = tick.exit(),
+            tickEnter = tick.enter().append("g").attr("class", "tick"),
+            line = tick.select("line"),
+            text = tick.select("text");
+
+        path = path.merge(path.enter().insert("path", ".tick")
+            .attr("class", "domain")
+            .attr("stroke", "currentColor"));
+
+        tick = tick.merge(tickEnter);
+
+        line = line.merge(tickEnter.append("line")
+            .attr("stroke", "currentColor")
+            .attr(x + "2", k * tickSizeInner));
+
+        text = text.merge(tickEnter.append("text")
+            .attr("fill", "currentColor")
+            .attr(x, k * spacing)
+            .attr("dy", orient === top ? "0em" : orient === bottom ? "0.71em" : "0.32em"));
+
+        if (context !== selection) {
+          path = path.transition(context);
+          tick = tick.transition(context);
+          line = line.transition(context);
+          text = text.transition(context);
+
+          tickExit = tickExit.transition(context)
+              .attr("opacity", epsilon)
+              .attr("transform", function(d) { return isFinite(d = position(d)) ? transform(d + offset) : this.getAttribute("transform"); });
+
+          tickEnter
+              .attr("opacity", epsilon)
+              .attr("transform", function(d) { var p = this.parentNode.__axis; return transform((p && isFinite(p = p(d)) ? p : position(d)) + offset); });
+        }
+
+        tickExit.remove();
+
+        path
+            .attr("d", orient === left || orient === right
+                ? (tickSizeOuter ? "M" + k * tickSizeOuter + "," + range0 + "H" + offset + "V" + range1 + "H" + k * tickSizeOuter : "M" + offset + "," + range0 + "V" + range1)
+                : (tickSizeOuter ? "M" + range0 + "," + k * tickSizeOuter + "V" + offset + "H" + range1 + "V" + k * tickSizeOuter : "M" + range0 + "," + offset + "H" + range1));
+
+        tick
+            .attr("opacity", 1)
+            .attr("transform", function(d) { return transform(position(d) + offset); });
+
+        line
+            .attr(x + "2", k * tickSizeInner);
+
+        text
+            .attr(x, k * spacing)
+            .text(format);
+
+        selection.filter(entering)
+            .attr("fill", "none")
+            .attr("font-size", 10)
+            .attr("font-family", "sans-serif")
+            .attr("text-anchor", orient === right ? "start" : orient === left ? "end" : "middle");
+
+        selection
+            .each(function() { this.__axis = position; });
+      }
+
+      axis.scale = function(_) {
+        return arguments.length ? (scale = _, axis) : scale;
+      };
+
+      axis.ticks = function() {
+        return tickArguments = slice.call(arguments), axis;
+      };
+
+      axis.tickArguments = function(_) {
+        return arguments.length ? (tickArguments = _ == null ? [] : slice.call(_), axis) : tickArguments.slice();
+      };
+
+      axis.tickValues = function(_) {
+        return arguments.length ? (tickValues = _ == null ? null : slice.call(_), axis) : tickValues && tickValues.slice();
+      };
+
+      axis.tickFormat = function(_) {
+        return arguments.length ? (tickFormat = _, axis) : tickFormat;
+      };
+
+      axis.tickSize = function(_) {
+        return arguments.length ? (tickSizeInner = tickSizeOuter = +_, axis) : tickSizeInner;
+      };
+
+      axis.tickSizeInner = function(_) {
+        return arguments.length ? (tickSizeInner = +_, axis) : tickSizeInner;
+      };
+
+      axis.tickSizeOuter = function(_) {
+        return arguments.length ? (tickSizeOuter = +_, axis) : tickSizeOuter;
+      };
+
+      axis.tickPadding = function(_) {
+        return arguments.length ? (tickPadding = +_, axis) : tickPadding;
+      };
+
+      axis.offset = function(_) {
+        return arguments.length ? (offset = +_, axis) : offset;
+      };
+
+      return axis;
+    }
+
+    function axisBottom(scale) {
+      return axis(bottom, scale);
+    }
+
+    function axisLeft(scale) {
+      return axis(left, scale);
+    }
+
+    /* src\Components\LineChart.svelte generated by Svelte v3.59.2 */
+
+    const { console: console_1 } = globals;
+    const file$5 = "src\\Components\\LineChart.svelte";
+
+    function get_each_context$2(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[14] = list[i];
+    	return child_ctx;
+    }
+
+    function get_each_context_1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[14] = list[i];
+    	return child_ctx;
+    }
+
+    // (125:4) {#each [0.2, 0.4, 0.6, 0.8, 1.0] as tick}
+    function create_each_block_1(ctx) {
+    	let g;
+    	let line_1;
+    	let line_1_x__value;
+    	let text_1;
+    	let t_value = /*formatter*/ ctx[6](/*tick*/ ctx[14]) + "";
+    	let t;
+    	let g_transform_value;
+
+    	const block = {
+    		c: function create() {
+    			g = svg_element("g");
+    			line_1 = svg_element("line");
+    			text_1 = svg_element("text");
+    			t = text$1(t_value);
+    			attr_dev(line_1, "class", "y-axis-line svelte-1m2xw2c");
+    			attr_dev(line_1, "x1", "0");
+    			attr_dev(line_1, "x2", line_1_x__value = /*width*/ ctx[1] - /*margin*/ ctx[7].right - /*margin*/ ctx[7].left);
+    			attr_dev(line_1, "y1", "0");
+    			attr_dev(line_1, "y2", "0");
+    			attr_dev(line_1, "stroke", "black");
+    			add_location(line_1, file$5, 127, 8, 4228);
+    			attr_dev(text_1, "class", "error-axis-text svelte-1m2xw2c");
+    			attr_dev(text_1, "y", "0");
+    			attr_dev(text_1, "text-anchor", "end");
+    			attr_dev(text_1, "dominant-baseline", "middle");
+    			add_location(text_1, file$5, 135, 8, 4423);
+    			attr_dev(g, "transform", g_transform_value = `translate(${/*margin*/ ctx[7].left - 5} ${/*accuracyScale*/ ctx[3](/*tick*/ ctx[14]) + 0})`);
+    			add_location(g, file$5, 125, 6, 4087);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, g, anchor);
+    			append_dev(g, line_1);
+    			append_dev(g, text_1);
+    			append_dev(text_1, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*width*/ 2 && line_1_x__value !== (line_1_x__value = /*width*/ ctx[1] - /*margin*/ ctx[7].right - /*margin*/ ctx[7].left)) {
+    				attr_dev(line_1, "x2", line_1_x__value);
+    			}
+
+    			if (dirty & /*accuracyScale*/ 8 && g_transform_value !== (g_transform_value = `translate(${/*margin*/ ctx[7].left - 5} ${/*accuracyScale*/ ctx[3](/*tick*/ ctx[14]) + 0})`)) {
+    				attr_dev(g, "transform", g_transform_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(g);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_1.name,
+    		type: "each",
+    		source: "(125:4) {#each [0.2, 0.4, 0.6, 0.8, 1.0] as tick}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (190:4) {#each xScale.ticks() as tick}
+    function create_each_block$2(ctx) {
+    	let g;
+    	let text_1;
+    	let t_value = /*tick*/ ctx[14] + "";
+    	let t;
+    	let g_transform_value;
+
+    	const block = {
+    		c: function create() {
+    			g = svg_element("g");
+    			text_1 = svg_element("text");
+    			t = text$1(t_value);
+    			attr_dev(text_1, "class", "error-axis-text svelte-1m2xw2c");
+    			attr_dev(text_1, "y", "15");
+    			attr_dev(text_1, "text-anchor", "end");
+    			add_location(text_1, file$5, 191, 8, 6038);
+    			attr_dev(g, "transform", g_transform_value = `translate(${/*xScale*/ ctx[2](/*tick*/ ctx[14]) + 0} ${/*height*/ ctx[0] - /*margin*/ ctx[7].bottom})`);
+    			add_location(g, file$5, 190, 6, 5954);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, g, anchor);
+    			append_dev(g, text_1);
+    			append_dev(text_1, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*xScale*/ 4 && t_value !== (t_value = /*tick*/ ctx[14] + "")) set_data_dev(t, t_value);
+
+    			if (dirty & /*xScale, height*/ 5 && g_transform_value !== (g_transform_value = `translate(${/*xScale*/ ctx[2](/*tick*/ ctx[14]) + 0} ${/*height*/ ctx[0] - /*margin*/ ctx[7].bottom})`)) {
+    				attr_dev(g, "transform", g_transform_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(g);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block$2.name,
+    		type: "each",
+    		source: "(190:4) {#each xScale.ticks() as tick}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$6(ctx) {
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t3;
+    	let div0;
+    	let t4;
+    	let p1;
+    	let t6;
+    	let div1;
+    	let svg;
+    	let line0;
+    	let line0_y__value;
+    	let line0_y__value_1;
+    	let line1;
+    	let line1_y__value_1;
+    	let path0;
+    	let path0_d_value;
+    	let path1;
+    	let path1_d_value;
+    	let path2;
+    	let path2_d_value;
+    	let path3;
+    	let path3_d_value;
+    	let text0;
+    	let t7;
+    	let text0_y_value;
+    	let text0_x_value;
+    	let text1;
+    	let t8;
+    	let text1_x_value;
+    	let svg_width_value;
+    	let svg_height_value;
+    	let div1_resize_listener;
+    	let each_value_1 = [0.2, 0.4, 0.6, 0.8, 1.0];
+    	validate_each_argument(each_value_1);
+    	let each_blocks_1 = [];
+
+    	for (let i = 0; i < 5; i += 1) {
+    		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    	}
+
+    	let each_value = /*xScale*/ ctx[2].ticks();
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			h1 = element("h1");
+    			h1.textContent = "Responsive, Static Chart Example";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = "HEY BUDDY GUESS WHAT I LOVE DOING [COFFEE MILK] ANYWAYS HERES A SAMPLE GAUSSIAN CURVE WOOOHOOOOO";
+    			t3 = space();
+    			div0 = element("div");
+    			t4 = space();
+    			p1 = element("p");
+    			p1.textContent = "This component is an example of a responsive chart built with Svelte and\r\n  D3.js.";
+    			t6 = space();
+    			div1 = element("div");
+    			svg = svg_element("svg");
+
+    			for (let i = 0; i < 5; i += 1) {
+    				each_blocks_1[i].c();
+    			}
+
+    			line0 = svg_element("line");
+    			line1 = svg_element("line");
+    			path0 = svg_element("path");
+    			path1 = svg_element("path");
+    			path2 = svg_element("path");
+    			path3 = svg_element("path");
+    			text0 = svg_element("text");
+    			t7 = text$1("Decision Boundary Threshold");
+    			text1 = svg_element("text");
+    			t8 = text$1("Score");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			attr_dev(h1, "class", "body-header");
+    			add_location(h1, file$5, 105, 0, 3477);
+    			attr_dev(p0, "class", "body-text");
+    			add_location(p0, file$5, 106, 0, 3540);
+    			attr_dev(div0, "id", "gaussian-curve");
+    			attr_dev(div0, "class", "svelte-1m2xw2c");
+    			add_location(div0, file$5, 110, 0, 3671);
+    			attr_dev(p1, "class", "body-text");
+    			add_location(p1, file$5, 113, 0, 3708);
+    			attr_dev(line0, "class", "error-axis-line");
+    			attr_dev(line0, "y1", line0_y__value = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom);
+    			attr_dev(line0, "y2", line0_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom);
+    			attr_dev(line0, "x1", /*margin*/ ctx[7].left);
+    			attr_dev(line0, "x2", /*width*/ ctx[1]);
+    			attr_dev(line0, "stroke", "black");
+    			attr_dev(line0, "stroke-width", "2");
+    			add_location(line0, file$5, 146, 4, 4707);
+    			attr_dev(line1, "class", "error-axis-line");
+    			attr_dev(line1, "y1", /*margin*/ ctx[7].top);
+    			attr_dev(line1, "y2", line1_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom);
+    			attr_dev(line1, "x1", /*margin*/ ctx[7].left);
+    			attr_dev(line1, "x2", /*margin*/ ctx[7].left);
+    			attr_dev(line1, "stroke", "black");
+    			attr_dev(line1, "stroke-width", "2");
+    			add_location(line1, file$5, 157, 4, 4990);
+    			attr_dev(path0, "class", "outline-line svelte-1m2xw2c");
+    			attr_dev(path0, "d", path0_d_value = /*accuracyPath*/ ctx[5](errorData));
+    			add_location(path0, file$5, 167, 4, 5200);
+    			attr_dev(path1, "class", "path-line svelte-1m2xw2c");
+    			attr_dev(path1, "d", path1_d_value = /*accuracyPath*/ ctx[5](errorData));
+    			attr_dev(path1, "stroke", "#c9208a");
+    			add_location(path1, file$5, 168, 4, 5268);
+    			attr_dev(path2, "class", "outline-line svelte-1m2xw2c");
+    			attr_dev(path2, "d", path2_d_value = /*precisionPath*/ ctx[4](errorData));
+    			add_location(path2, file$5, 169, 4, 5350);
+    			attr_dev(path3, "class", "path-line svelte-1m2xw2c");
+    			attr_dev(path3, "d", path3_d_value = /*precisionPath*/ ctx[4](errorData));
+    			attr_dev(path3, "stroke", "#ab00d6");
+    			add_location(path3, file$5, 170, 4, 5419);
+    			attr_dev(text0, "class", "error-axis-label svelte-1m2xw2c");
+    			attr_dev(text0, "y", text0_y_value = /*height*/ ctx[0] + /*margin*/ ctx[7].bottom);
+    			attr_dev(text0, "x", text0_x_value = (/*width*/ ctx[1] + /*margin*/ ctx[7].left) / 2);
+    			attr_dev(text0, "text-anchor", "middle");
+    			add_location(text0, file$5, 174, 4, 5536);
+    			attr_dev(text1, "class", "error-axis-label svelte-1m2xw2c");
+    			attr_dev(text1, "y", /*margin*/ ctx[7].left / 3);
+    			attr_dev(text1, "x", text1_x_value = -(/*height*/ ctx[0] / 2));
+    			attr_dev(text1, "text-anchor", "middle");
+    			attr_dev(text1, "transform", "rotate(-90)");
+    			add_location(text1, file$5, 180, 4, 5719);
+    			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[1] + /*margin*/ ctx[7].left + /*margin*/ ctx[7].right);
+    			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[0] + /*margin*/ ctx[7].top + /*margin*/ ctx[7].bottom);
+    			add_location(svg, file$5, 119, 2, 3903);
+    			attr_dev(div1, "id", "error-chart");
+    			attr_dev(div1, "class", "svelte-1m2xw2c");
+    			add_render_callback(() => /*div1_elementresize_handler*/ ctx[9].call(div1));
+    			add_location(div1, file$5, 118, 0, 3825);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, div0, anchor);
+    			insert_dev(target, t4, anchor);
+    			insert_dev(target, p1, anchor);
+    			insert_dev(target, t6, anchor);
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, svg);
+
+    			for (let i = 0; i < 5; i += 1) {
+    				if (each_blocks_1[i]) {
+    					each_blocks_1[i].m(svg, null);
+    				}
+    			}
+
+    			append_dev(svg, line0);
+    			append_dev(svg, line1);
+    			append_dev(svg, path0);
+    			append_dev(svg, path1);
+    			append_dev(svg, path2);
+    			append_dev(svg, path3);
+    			append_dev(svg, text0);
+    			append_dev(text0, t7);
+    			append_dev(svg, text1);
+    			append_dev(text1, t8);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				if (each_blocks[i]) {
+    					each_blocks[i].m(svg, null);
+    				}
+    			}
+
+    			div1_resize_listener = add_iframe_resize_listener(div1, /*div1_elementresize_handler*/ ctx[9].bind(div1));
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*margin, accuracyScale, formatter, width*/ 202) {
+    				each_value_1 = [0.2, 0.4, 0.6, 0.8, 1.0];
+    				validate_each_argument(each_value_1);
+    				let i;
+
+    				for (i = 0; i < 5; i += 1) {
+    					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+    					if (each_blocks_1[i]) {
+    						each_blocks_1[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks_1[i] = create_each_block_1(child_ctx);
+    						each_blocks_1[i].c();
+    						each_blocks_1[i].m(svg, line0);
+    					}
+    				}
+
+    				for (; i < 5; i += 1) {
+    					each_blocks_1[i].d(1);
+    				}
+    			}
+
+    			if (dirty & /*height*/ 1 && line0_y__value !== (line0_y__value = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom)) {
+    				attr_dev(line0, "y1", line0_y__value);
+    			}
+
+    			if (dirty & /*height*/ 1 && line0_y__value_1 !== (line0_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom)) {
+    				attr_dev(line0, "y2", line0_y__value_1);
+    			}
+
+    			if (dirty & /*width*/ 2) {
+    				attr_dev(line0, "x2", /*width*/ ctx[1]);
+    			}
+
+    			if (dirty & /*height*/ 1 && line1_y__value_1 !== (line1_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom)) {
+    				attr_dev(line1, "y2", line1_y__value_1);
+    			}
+
+    			if (dirty & /*accuracyPath*/ 32 && path0_d_value !== (path0_d_value = /*accuracyPath*/ ctx[5](errorData))) {
+    				attr_dev(path0, "d", path0_d_value);
+    			}
+
+    			if (dirty & /*accuracyPath*/ 32 && path1_d_value !== (path1_d_value = /*accuracyPath*/ ctx[5](errorData))) {
+    				attr_dev(path1, "d", path1_d_value);
+    			}
+
+    			if (dirty & /*precisionPath*/ 16 && path2_d_value !== (path2_d_value = /*precisionPath*/ ctx[4](errorData))) {
+    				attr_dev(path2, "d", path2_d_value);
+    			}
+
+    			if (dirty & /*precisionPath*/ 16 && path3_d_value !== (path3_d_value = /*precisionPath*/ ctx[4](errorData))) {
+    				attr_dev(path3, "d", path3_d_value);
+    			}
+
+    			if (dirty & /*height*/ 1 && text0_y_value !== (text0_y_value = /*height*/ ctx[0] + /*margin*/ ctx[7].bottom)) {
+    				attr_dev(text0, "y", text0_y_value);
+    			}
+
+    			if (dirty & /*width*/ 2 && text0_x_value !== (text0_x_value = (/*width*/ ctx[1] + /*margin*/ ctx[7].left) / 2)) {
+    				attr_dev(text0, "x", text0_x_value);
+    			}
+
+    			if (dirty & /*height*/ 1 && text1_x_value !== (text1_x_value = -(/*height*/ ctx[0] / 2))) {
+    				attr_dev(text1, "x", text1_x_value);
+    			}
+
+    			if (dirty & /*xScale, height, margin*/ 133) {
+    				each_value = /*xScale*/ ctx[2].ticks();
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$2(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block$2(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(svg, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+
+    			if (dirty & /*width*/ 2 && svg_width_value !== (svg_width_value = /*width*/ ctx[1] + /*margin*/ ctx[7].left + /*margin*/ ctx[7].right)) {
+    				attr_dev(svg, "width", svg_width_value);
+    			}
+
+    			if (dirty & /*height*/ 1 && svg_height_value !== (svg_height_value = /*height*/ ctx[0] + /*margin*/ ctx[7].top + /*margin*/ ctx[7].bottom)) {
+    				attr_dev(svg, "height", svg_height_value);
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(div0);
+    			if (detaching) detach_dev(t4);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t6);
+    			if (detaching) detach_dev(div1);
+    			destroy_each(each_blocks_1, detaching);
+    			destroy_each(each_blocks, detaching);
+    			div1_resize_listener();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$6.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$6($$self, $$props, $$invalidate) {
+    	let xScale;
+    	let accuracyScale;
+    	let precisionScale;
+    	let accuracyPath;
+    	let precisionPath;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('LineChart', slots, []);
+    	let meanScore = 0.0;
+    	let std = 0.0;
+
+    	//this is for gaussian curve
+    	const marginGC = { top: 20, right: 20, bottom: 50, left: 50 };
+
+    	onMount(async () => {
+    		console.log("mounted");
+
+    		try {
+    			const data = await csv('/StudentsPerformance.csv');
+    			console.log(data[0]);
+
+    			//TAKING ALL MATH SCORES FROM NONE TEST PREP
+    			const noprepData = data.filter(d => d['test preparation course'] == 'none');
+
+    			const scores = noprepData.map(d => +d['math score']);
+    			console.log(noprepData);
+    			meanScore = mean(scores);
+    			std = deviation(scores);
+    			console.log(meanScore);
+    			console.log(std);
+
+    			//NOW WE GOTTA SVG THIS BABY UP WOOOHOOOOO
+    			const svg = select('#gaussian-curve').append('svg').attr('width', 500).attr('height', 300);
+
+    			const xValues = range(0, 100, 0.1);
+
+    			// makin scales 
+    			const xScale = linear().domain([0, 100]).range([50, 450]);
+
+    			const yScale = linear().domain([0, 1 / (std * Math.sqrt(2 * Math.PI))]).range([250, 50]);
+
+    			//values for the Gaussian curve
+    			const yValues = xValues.map(x => {
+    				const exponent = -Math.pow(x - meanScore, 2) / (2 * Math.pow(std, 2));
+    				return 1 / (std * Math.sqrt(2 * Math.PI)) * Math.exp(exponent);
+    			});
+
+    			const lineGenerator = line().x((d, i) => xScale(xValues[i])).y(d => yScale(d));
+
+    			// Draw Gaussian curve
+    			svg.append('path').datum(yValues).attr('d', lineGenerator).attr('fill', 'none').attr('stroke', 'blue');
+
+    			// Axis Powers would be a pretty good name for this section if those blockheads didn't already take it in WWII
+    			svg.append('g').attr('transform', 'translate(0, 250)').call(axisBottom(xScale));
+
+    			svg.append('g').attr('transform', 'translate(50, 0)').call(axisLeft(yScale));
+    		} catch(e) {
+    			//shit something went wrong
+    			console.log("HEY SOMETHIN WENT WRONG IN LINECHART.SVELTE ITS BURNING AAAAAAA " + e);
+    		}
+    	});
+
+    	const formatter = format(".0%");
+    	let height = 500;
+    	let width = 500;
+    	const mobile = window.innerWidth <= 700;
+
+    	const margin = {
+    		top: mobile ? 40 : 50,
+    		bottom: mobile ? 10 : 25,
+    		left: mobile ? 0 : 80,
+    		right: mobile ? 0 : 10
+    	};
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<LineChart> was created with unknown prop '${key}'`);
+    	});
+
+    	function div1_elementresize_handler() {
+    		width = this.offsetWidth;
+    		height = this.offsetHeight;
+    		$$invalidate(1, width);
+    		$$invalidate(0, height);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		line,
+    		curveStep,
+    		scaleLinear: linear,
+    		errorData,
+    		format,
+    		csv,
+    		mean,
+    		deviation,
+    		onMount,
+    		select,
+    		range,
+    		axisBottom,
+    		axisLeft,
+    		meanScore,
+    		std,
+    		marginGC,
+    		formatter,
+    		height,
+    		width,
+    		mobile,
+    		margin,
+    		precisionScale,
+    		xScale,
+    		precisionPath,
+    		accuracyScale,
+    		accuracyPath
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('meanScore' in $$props) meanScore = $$props.meanScore;
+    		if ('std' in $$props) std = $$props.std;
+    		if ('height' in $$props) $$invalidate(0, height = $$props.height);
+    		if ('width' in $$props) $$invalidate(1, width = $$props.width);
+    		if ('precisionScale' in $$props) $$invalidate(8, precisionScale = $$props.precisionScale);
+    		if ('xScale' in $$props) $$invalidate(2, xScale = $$props.xScale);
+    		if ('precisionPath' in $$props) $$invalidate(4, precisionPath = $$props.precisionPath);
+    		if ('accuracyScale' in $$props) $$invalidate(3, accuracyScale = $$props.accuracyScale);
+    		if ('accuracyPath' in $$props) $$invalidate(5, accuracyPath = $$props.accuracyPath);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*width*/ 2) {
+    			$$invalidate(2, xScale = linear().domain([0, 14.4]).range([margin.left, width - margin.right]));
+    		}
+
+    		if ($$self.$$.dirty & /*height*/ 1) {
+    			$$invalidate(3, accuracyScale = linear().domain([0.0, 1]).range([height - margin.bottom, margin.top]));
+    		}
+
+    		if ($$self.$$.dirty & /*height*/ 1) {
+    			$$invalidate(8, precisionScale = linear().domain([0.0, 1]).range([height - margin.bottom, margin.top]));
+    		}
+
+    		if ($$self.$$.dirty & /*xScale, accuracyScale*/ 12) {
+    			$$invalidate(5, accuracyPath = line().x(d => xScale(d.thresh)).y(d => accuracyScale(d.accuracy)).curve(curveStep));
+    		}
+
+    		if ($$self.$$.dirty & /*xScale, precisionScale*/ 260) {
+    			$$invalidate(4, precisionPath = line().x(d => xScale(d.thresh)).y(d => precisionScale(d.precision)).curve(curveStep));
+    		}
+    	};
+
+    	return [
+    		height,
+    		width,
+    		xScale,
+    		accuracyScale,
+    		precisionPath,
+    		accuracyPath,
+    		formatter,
+    		margin,
+    		precisionScale,
+    		div1_elementresize_handler
+    	];
+    }
+
+    class LineChart extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$6, create_fragment$6, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "LineChart",
+    			options,
+    			id: create_fragment$6.name
+    		});
+    	}
+    }
+
+    /* src\Components\Scrolly.svelte generated by Svelte v3.59.2 */
+    const file$4 = "src\\Components\\Scrolly.svelte";
+
+    function create_fragment$5(ctx) {
+    	let div;
+    	let current;
+    	const default_slot_template = /*#slots*/ ctx[7].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[6], null);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			if (default_slot) default_slot.c();
+    			add_location(div, file$4, 80, 2, 2222);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+
+    			if (default_slot) {
+    				default_slot.m(div, null);
+    			}
+
+    			/*div_binding*/ ctx[8](div);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (default_slot) {
+    				if (default_slot.p && (!current || dirty & /*$$scope*/ 64)) {
+    					update_slot_base(
+    						default_slot,
+    						default_slot_template,
+    						ctx,
+    						/*$$scope*/ ctx[6],
+    						!current
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[6])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[6], dirty, null),
+    						null
+    					);
+    				}
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if (default_slot) default_slot.d(detaching);
+    			/*div_binding*/ ctx[8](null);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$5.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$5($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Scrolly', slots, ['default']);
+    	let { root = null } = $$props;
+    	let { top = 0 } = $$props;
+    	let { bottom = 0 } = $$props;
+    	let { increments = 100 } = $$props;
+    	let { value = undefined } = $$props;
+    	const steps = [];
+    	const threshold = [];
+    	let nodes = [];
+    	let intersectionObservers = [];
+    	let container;
+
+    	const update = () => {
+    		if (!nodes.length) return;
+    		nodes.forEach(createObserver);
+    	};
+
+    	const mostInView = () => {
+    		let maxRatio = 0;
+    		let maxIndex = 0;
+
+    		for (let i = 0; i < steps.length; i++) {
+    			if (steps[i] > maxRatio) {
+    				maxRatio = steps[i];
+    				maxIndex = i;
+    			}
+    		}
+
+    		if (maxRatio > 0) $$invalidate(1, value = maxIndex); else $$invalidate(1, value = undefined);
+    	};
+
+    	const createObserver = (node, index) => {
+    		const handleIntersect = e => {
+    			e[0].isIntersecting;
+    			const ratio = e[0].intersectionRatio;
+    			steps[index] = ratio;
+    			mostInView();
+    		};
+
+    		const marginTop = top ? top * -1 : 0;
+    		const marginBottom = bottom ? bottom * -1 : 0;
+    		const rootMargin = `${marginTop}px 0px ${marginBottom}px 0px`;
+    		const options = { root, rootMargin, threshold };
+    		if (intersectionObservers[index]) intersectionObservers[index].disconnect();
+    		const io = new IntersectionObserver(handleIntersect, options);
+    		io.observe(node);
+    		intersectionObservers[index] = io;
+    	};
+
+    	onMount(() => {
+    		for (let i = 0; i < increments + 1; i++) {
+    			threshold.push(i / increments);
+    		}
+
+    		nodes = container.querySelectorAll(":scope > *");
+    		update();
+    	});
+
+    	const writable_props = ['root', 'top', 'bottom', 'increments', 'value'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Scrolly> was created with unknown prop '${key}'`);
+    	});
+
+    	function div_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			container = $$value;
+    			$$invalidate(0, container);
+    		});
+    	}
+
+    	$$self.$$set = $$props => {
+    		if ('root' in $$props) $$invalidate(2, root = $$props.root);
+    		if ('top' in $$props) $$invalidate(3, top = $$props.top);
+    		if ('bottom' in $$props) $$invalidate(4, bottom = $$props.bottom);
+    		if ('increments' in $$props) $$invalidate(5, increments = $$props.increments);
+    		if ('value' in $$props) $$invalidate(1, value = $$props.value);
+    		if ('$$scope' in $$props) $$invalidate(6, $$scope = $$props.$$scope);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		onMount,
+    		root,
+    		top,
+    		bottom,
+    		increments,
+    		value,
+    		steps,
+    		threshold,
+    		nodes,
+    		intersectionObservers,
+    		container,
+    		update,
+    		mostInView,
+    		createObserver
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('root' in $$props) $$invalidate(2, root = $$props.root);
+    		if ('top' in $$props) $$invalidate(3, top = $$props.top);
+    		if ('bottom' in $$props) $$invalidate(4, bottom = $$props.bottom);
+    		if ('increments' in $$props) $$invalidate(5, increments = $$props.increments);
+    		if ('value' in $$props) $$invalidate(1, value = $$props.value);
+    		if ('nodes' in $$props) nodes = $$props.nodes;
+    		if ('intersectionObservers' in $$props) intersectionObservers = $$props.intersectionObservers;
+    		if ('container' in $$props) $$invalidate(0, container = $$props.container);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*top, bottom*/ 24) {
+    			(update());
+    		}
+    	};
+
+    	return [container, value, root, top, bottom, increments, $$scope, slots, div_binding];
+    }
+
+    class Scrolly extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+
+    		init(this, options, instance$5, create_fragment$5, safe_not_equal, {
+    			root: 2,
+    			top: 3,
+    			bottom: 4,
+    			increments: 5,
+    			value: 1
+    		});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Scrolly",
+    			options,
+    			id: create_fragment$5.name
+    		});
+    	}
+
+    	get root() {
+    		throw new Error("<Scrolly>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set root(value) {
+    		throw new Error("<Scrolly>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get top() {
+    		throw new Error("<Scrolly>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set top(value) {
+    		throw new Error("<Scrolly>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get bottom() {
+    		throw new Error("<Scrolly>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set bottom(value) {
+    		throw new Error("<Scrolly>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get increments() {
+    		throw new Error("<Scrolly>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set increments(value) {
+    		throw new Error("<Scrolly>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get value() {
+    		throw new Error("<Scrolly>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set value(value) {
+    		throw new Error("<Scrolly>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
     /* src\Components\ScrollCenter.svelte generated by Svelte v3.59.2 */
     const file$3 = "src\\Components\\ScrollCenter.svelte";
 
@@ -22469,7 +22991,7 @@ var app = (function () {
     			h3.textContent = "References + Open Source";
     			t1 = space();
     			p0 = element("p");
-    			t2 = text("This article is a product of the following resources:\r\n    ");
+    			t2 = text$1("This article is a product of the following resources:\r\n    ");
     			br0 = element("br");
     			br1 = element("br");
     			t3 = space();

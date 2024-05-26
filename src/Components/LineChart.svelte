@@ -3,8 +3,74 @@
   import { scaleLinear } from "d3-scale";
   import { errorData } from "../datasets.js";
   import { format } from "d3-format";
+  //for the csvs
+  import { csv } from 'd3-fetch';
+  import { mean, deviation } from 'd3-array';
+  import { onMount } from 'svelte'; 
+  import { select } from 'd3-selection';
+  import { range } from 'd3-array';
+  import { axisBottom, axisLeft } from 'd3-axis'; 
+  //calculating true mean, std
+  let meanScore = 0.0;
+  let std = 0.0;
+  //this is for gaussian curve
+  const marginGC = { top: 20, right: 20, bottom: 50, left: 50 };
+  onMount(async() =>{
+    console.log("mounted");
+    try{
+      const data = await csv('/StudentsPerformance.csv');
+      console.log(data[0])
+      //TAKING ALL MATH SCORES FROM NONE TEST PREP
+      const noprepData = data.filter(d => d['test preparation course'] == 'none');
+      const scores = noprepData.map(d => +d['math score']);
+      console.log(noprepData)
+      meanScore = mean(scores);
+      std = deviation(scores);
+      console.log(meanScore);
+      console.log(std);
+      //NOW WE GOTTA SVG THIS BABY UP WOOOHOOOOO
+      const svg = select('#gaussian-curve')
+        .append('svg')
+        .attr('width', 500)
+        .attr('height', 300);
+      const xValues = range(0, 100, 0.1);
+      // makin scales 
+      const xScale = scaleLinear()
+        .domain([0, 100])
+        .range([50, 450]);
+      const yScale = scaleLinear()
+        .domain([0, 1 / (std * Math.sqrt(2 * Math.PI))])
+        .range([250,50]);
+      //values for the Gaussian curve
+      const yValues = xValues.map(x => {
+        const exponent = -Math.pow(x - meanScore, 2) / (2 * Math.pow(std, 2));
+        return 1 / (std * Math.sqrt(2 * Math.PI)) * Math.exp(exponent);
+      });
+      const lineGenerator = line()
+        .x((d, i) => xScale(xValues[i]))
+        .y(d => yScale(d));
+      // Draw Gaussian curve
+      svg.append('path')
+        .datum(yValues)
+        .attr('d', lineGenerator)
+        .attr('fill', 'none')
+        .attr('stroke', 'blue');
+      // Axis Powers would be a pretty good name for this section if those blockheads didn't already take it in WWII
+      svg.append('g')
+        .attr('transform', 'translate(0, 250)')
+        .call(axisBottom(xScale));
+      svg.append('g')
+        .attr('transform', 'translate(50, 0)')
+        .call(axisLeft(yScale));
+    }catch(e){
+      //shit something went wrong
+      console.log("HEY SOMETHIN WENT WRONG IN LINECHART.SVELTE ITS BURNING AAAAAAA " + e);
+    }
+  });
+
 
   const formatter = format(".0%");
+  
 
   let height = 500;
   let width = 500;
@@ -38,6 +104,13 @@
 </script>
 
 <h1 class="body-header">Responsive, Static Chart Example</h1>
+<p class="body-text">
+  HEY BUDDY GUESS WHAT I LOVE DOING [COFFEE MILK] ANYWAYS HERES A SAMPLE GAUSSIAN CURVE WOOOHOOOOO
+
+</p>
+<div id="gaussian-curve">
+
+</div>
 <p class="body-text">
   This component is an example of a responsive chart built with Svelte and
   D3.js.
@@ -123,6 +196,12 @@
 </div>
 
 <style>
+  #gaussian-curve{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3vw;
+  }
   #error-chart {
     margin: auto;
     max-height: 55vh;

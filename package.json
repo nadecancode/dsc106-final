@@ -23,11 +23,14 @@
     "d3-scale": "^3.3.0",
     "d3-selection": "^2.0.0",
     "d3-shape": "^2.1.0",
+    "d3-fetch": "^3.0.1",
+    "d3-axis": "^2.0.0",
     "intersection-observer": "^0.5.0",
     "smoothscroll-polyfill": "^0.4.4",
     "stickyfill": "^1.1.1-strict",
     "katex": "^0.12.0",
     "sirv-cli": "^1.0.0",
-    "svelte-preprocess": "^4.6.9"
+    "svelte-preprocess": "^4.6.9",
+    "simple-statistics": "^7.7.3"
   }
 }
