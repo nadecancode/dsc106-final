@@ -9,22 +9,18 @@ jobs:
   build_site:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Check out Git repository
         uses: actions/checkout@v3
-      - name: Install Node.js
-        uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: 18
-          cache: npm
-
+          version: 9
       - name: Install dependencies
-        run: npm install
-
+        run: pnpm install --no-frozen-lockfile
       - name: build
         env:
           BASE_PATH: '/${{ github.event.repository.name }}'
         run: |
-          npm run build
+          pnpm run build
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v2
