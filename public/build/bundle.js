@@ -124,8 +124,22 @@ var app = (function () {
         else if (node.getAttribute(attribute) !== value)
             node.setAttribute(attribute, value);
     }
+    function to_number(value) {
+        return value === '' ? null : +value;
+    }
     function children$1(element) {
         return Array.from(element.childNodes);
+    }
+    function set_input_value(input, value) {
+        input.value = value == null ? '' : value;
+    }
+    function set_style(node, key, value, important) {
+        if (value == null) {
+            node.style.removeProperty(key);
+        }
+        else {
+            node.style.setProperty(key, value, important ? 'important' : '');
+        }
     }
     // unfortunately this can't be a constant as that wouldn't be tree-shakeable
     // so we cache the result instead
@@ -21596,23 +21610,60 @@ var app = (function () {
 
     function get_each_context$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[14] = list[i];
+    	child_ctx[21] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[14] = list[i];
+    	child_ctx[21] = list[i];
     	return child_ctx;
     }
 
-    // (125:4) {#each [0.2, 0.4, 0.6, 0.8, 1.0] as tick}
+    // (161:0) {#if error}
+    function create_if_block(ctx) {
+    	let p;
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			p = element("p");
+    			t = text$1(/*error*/ ctx[5]);
+    			set_style(p, "color", "red");
+    			attr_dev(p, "id", "error");
+    			attr_dev(p, "class", "svelte-19pifqt");
+    			add_location(p, file$6, 161, 2, 5250);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, p, anchor);
+    			append_dev(p, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*error*/ 32) set_data_dev(t, /*error*/ ctx[5]);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(p);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(161:0) {#if error}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (178:4) {#each [0.2, 0.4, 0.6, 0.8, 1.0] as tick}
     function create_each_block_1(ctx) {
     	let g;
     	let line_1;
     	let line_1_x__value;
     	let text_1;
-    	let t_value = /*formatter*/ ctx[6](/*tick*/ ctx[14]) + "";
+    	let t_value = /*formatter*/ ctx[9](/*tick*/ ctx[21]) + "";
     	let t;
     	let g_transform_value;
 
@@ -21622,20 +21673,20 @@ var app = (function () {
     			line_1 = svg_element("line");
     			text_1 = svg_element("text");
     			t = text$1(t_value);
-    			attr_dev(line_1, "class", "y-axis-line svelte-1m2xw2c");
+    			attr_dev(line_1, "class", "y-axis-line svelte-19pifqt");
     			attr_dev(line_1, "x1", "0");
-    			attr_dev(line_1, "x2", line_1_x__value = /*width*/ ctx[1] - /*margin*/ ctx[7].right - /*margin*/ ctx[7].left);
+    			attr_dev(line_1, "x2", line_1_x__value = /*width*/ ctx[1] - /*margin*/ ctx[10].right - /*margin*/ ctx[10].left);
     			attr_dev(line_1, "y1", "0");
     			attr_dev(line_1, "y2", "0");
     			attr_dev(line_1, "stroke", "black");
-    			add_location(line_1, file$6, 127, 8, 4228);
-    			attr_dev(text_1, "class", "error-axis-text svelte-1m2xw2c");
+    			add_location(line_1, file$6, 180, 8, 5863);
+    			attr_dev(text_1, "class", "error-axis-text svelte-19pifqt");
     			attr_dev(text_1, "y", "0");
     			attr_dev(text_1, "text-anchor", "end");
     			attr_dev(text_1, "dominant-baseline", "middle");
-    			add_location(text_1, file$6, 135, 8, 4423);
-    			attr_dev(g, "transform", g_transform_value = `translate(${/*margin*/ ctx[7].left - 5} ${/*accuracyScale*/ ctx[3](/*tick*/ ctx[14]) + 0})`);
-    			add_location(g, file$6, 125, 6, 4087);
+    			add_location(text_1, file$6, 188, 8, 6058);
+    			attr_dev(g, "transform", g_transform_value = `translate(${/*margin*/ ctx[10].left - 5} ${/*accuracyScale*/ ctx[3](/*tick*/ ctx[21]) + 0})`);
+    			add_location(g, file$6, 178, 6, 5722);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, g, anchor);
@@ -21644,11 +21695,11 @@ var app = (function () {
     			append_dev(text_1, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*width*/ 2 && line_1_x__value !== (line_1_x__value = /*width*/ ctx[1] - /*margin*/ ctx[7].right - /*margin*/ ctx[7].left)) {
+    			if (dirty & /*width*/ 2 && line_1_x__value !== (line_1_x__value = /*width*/ ctx[1] - /*margin*/ ctx[10].right - /*margin*/ ctx[10].left)) {
     				attr_dev(line_1, "x2", line_1_x__value);
     			}
 
-    			if (dirty & /*accuracyScale*/ 8 && g_transform_value !== (g_transform_value = `translate(${/*margin*/ ctx[7].left - 5} ${/*accuracyScale*/ ctx[3](/*tick*/ ctx[14]) + 0})`)) {
+    			if (dirty & /*accuracyScale*/ 8 && g_transform_value !== (g_transform_value = `translate(${/*margin*/ ctx[10].left - 5} ${/*accuracyScale*/ ctx[3](/*tick*/ ctx[21]) + 0})`)) {
     				attr_dev(g, "transform", g_transform_value);
     			}
     		},
@@ -21661,18 +21712,18 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(125:4) {#each [0.2, 0.4, 0.6, 0.8, 1.0] as tick}",
+    		source: "(178:4) {#each [0.2, 0.4, 0.6, 0.8, 1.0] as tick}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (190:4) {#each xScale.ticks() as tick}
+    // (243:4) {#each xScale.ticks() as tick}
     function create_each_block$2(ctx) {
     	let g;
     	let text_1;
-    	let t_value = /*tick*/ ctx[14] + "";
+    	let t_value = /*tick*/ ctx[21] + "";
     	let t;
     	let g_transform_value;
 
@@ -21681,12 +21732,12 @@ var app = (function () {
     			g = svg_element("g");
     			text_1 = svg_element("text");
     			t = text$1(t_value);
-    			attr_dev(text_1, "class", "error-axis-text svelte-1m2xw2c");
+    			attr_dev(text_1, "class", "error-axis-text svelte-19pifqt");
     			attr_dev(text_1, "y", "15");
     			attr_dev(text_1, "text-anchor", "end");
-    			add_location(text_1, file$6, 191, 8, 6038);
-    			attr_dev(g, "transform", g_transform_value = `translate(${/*xScale*/ ctx[2](/*tick*/ ctx[14]) + 0} ${/*height*/ ctx[0] - /*margin*/ ctx[7].bottom})`);
-    			add_location(g, file$6, 190, 6, 5954);
+    			add_location(text_1, file$6, 244, 8, 7673);
+    			attr_dev(g, "transform", g_transform_value = `translate(${/*xScale*/ ctx[2](/*tick*/ ctx[21]) + 0} ${/*height*/ ctx[0] - /*margin*/ ctx[10].bottom})`);
+    			add_location(g, file$6, 243, 6, 7589);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, g, anchor);
@@ -21694,9 +21745,9 @@ var app = (function () {
     			append_dev(text_1, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*xScale*/ 4 && t_value !== (t_value = /*tick*/ ctx[14] + "")) set_data_dev(t, t_value);
+    			if (dirty & /*xScale*/ 4 && t_value !== (t_value = /*tick*/ ctx[21] + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*xScale, height*/ 5 && g_transform_value !== (g_transform_value = `translate(${/*xScale*/ ctx[2](/*tick*/ ctx[14]) + 0} ${/*height*/ ctx[0] - /*margin*/ ctx[7].bottom})`)) {
+    			if (dirty & /*xScale, height*/ 5 && g_transform_value !== (g_transform_value = `translate(${/*xScale*/ ctx[2](/*tick*/ ctx[21]) + 0} ${/*height*/ ctx[0] - /*margin*/ ctx[10].bottom})`)) {
     				attr_dev(g, "transform", g_transform_value);
     			}
     		},
@@ -21709,7 +21760,7 @@ var app = (function () {
     		block,
     		id: create_each_block$2.name,
     		type: "each",
-    		source: "(190:4) {#each xScale.ticks() as tick}",
+    		source: "(243:4) {#each xScale.ticks() as tick}",
     		ctx
     	});
 
@@ -21721,12 +21772,20 @@ var app = (function () {
     	let t1;
     	let p0;
     	let t3;
-    	let div0;
-    	let t4;
-    	let p1;
+    	let form;
+    	let label;
+    	let t5;
+    	let input;
     	let t6;
+    	let button;
+    	let t8;
+    	let t9;
+    	let div0;
+    	let t10;
+    	let p1;
+    	let t12;
     	let div1;
-    	let svg;
+    	let svg_1;
     	let line0;
     	let line0_y__value;
     	let line0_y__value_1;
@@ -21741,15 +21800,18 @@ var app = (function () {
     	let path3;
     	let path3_d_value;
     	let text0;
-    	let t7;
+    	let t13;
     	let text0_y_value;
     	let text0_x_value;
     	let text1;
-    	let t8;
+    	let t14;
     	let text1_x_value;
-    	let svg_width_value;
-    	let svg_height_value;
+    	let svg_1_width_value;
+    	let svg_1_height_value;
     	let div1_resize_listener;
+    	let mounted;
+    	let dispose;
+    	let if_block = /*error*/ ctx[5] && create_if_block(ctx);
     	let each_value_1 = [0.2, 0.4, 0.6, 0.8, 1.0];
     	validate_each_argument(each_value_1);
     	let each_blocks_1 = [];
@@ -21772,15 +21834,26 @@ var app = (function () {
     			h1.textContent = "Responsive, Static Chart Example";
     			t1 = space();
     			p0 = element("p");
-    			p0.textContent = "HEY BUDDY GUESS WHAT I LOVE DOING [COFFEE MILK] ANYWAYS HERES A SAMPLE GAUSSIAN CURVE WOOOHOOOOO";
+    			p0.textContent = "Belo";
     			t3 = space();
+    			form = element("form");
+    			label = element("label");
+    			label.textContent = "Mean:";
+    			t5 = space();
+    			input = element("input");
+    			t6 = space();
+    			button = element("button");
+    			button.textContent = "Draw Gaussian Curve";
+    			t8 = space();
+    			if (if_block) if_block.c();
+    			t9 = space();
     			div0 = element("div");
-    			t4 = space();
+    			t10 = space();
     			p1 = element("p");
     			p1.textContent = "This component is an example of a responsive chart built with Svelte and\r\n  D3.js.";
-    			t6 = space();
+    			t12 = space();
     			div1 = element("div");
-    			svg = svg_element("svg");
+    			svg_1 = svg_element("svg");
 
     			for (let i = 0; i < 5; i += 1) {
     				each_blocks_1[i].c();
@@ -21793,71 +21866,84 @@ var app = (function () {
     			path2 = svg_element("path");
     			path3 = svg_element("path");
     			text0 = svg_element("text");
-    			t7 = text$1("Decision Boundary Threshold");
+    			t13 = text$1("Decision Boundary Threshold");
     			text1 = svg_element("text");
-    			t8 = text$1("Score");
+    			t14 = text$1("Score");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
     			attr_dev(h1, "class", "body-header");
-    			add_location(h1, file$6, 105, 0, 3477);
+    			add_location(h1, file$6, 148, 0, 4895);
     			attr_dev(p0, "class", "body-text");
-    			add_location(p0, file$6, 106, 0, 3540);
+    			add_location(p0, file$6, 149, 0, 4958);
+    			attr_dev(label, "for", "mean");
+    			add_location(label, file$6, 155, 2, 5050);
+    			attr_dev(input, "type", "number");
+    			attr_dev(input, "id", "mean");
+    			attr_dev(input, "step", "any");
+    			input.required = true;
+    			add_location(input, file$6, 156, 2, 5085);
+    			attr_dev(button, "type", "submit");
+    			attr_dev(button, "class", "svelte-19pifqt");
+    			add_location(button, file$6, 158, 2, 5174);
+    			attr_dev(form, "id", "drawForm");
+    			attr_dev(form, "class", "svelte-19pifqt");
+    			add_location(form, file$6, 154, 0, 4999);
     			attr_dev(div0, "id", "gaussian-curve");
-    			attr_dev(div0, "class", "svelte-1m2xw2c");
-    			add_location(div0, file$6, 110, 0, 3671);
+    			attr_dev(div0, "class", "svelte-19pifqt");
+    			add_location(div0, file$6, 163, 0, 5306);
     			attr_dev(p1, "class", "body-text");
-    			add_location(p1, file$6, 113, 0, 3708);
+    			add_location(p1, file$6, 166, 0, 5343);
     			attr_dev(line0, "class", "error-axis-line");
-    			attr_dev(line0, "y1", line0_y__value = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom);
-    			attr_dev(line0, "y2", line0_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom);
-    			attr_dev(line0, "x1", /*margin*/ ctx[7].left);
+    			attr_dev(line0, "y1", line0_y__value = /*height*/ ctx[0] - /*margin*/ ctx[10].bottom);
+    			attr_dev(line0, "y2", line0_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[10].bottom);
+    			attr_dev(line0, "x1", /*margin*/ ctx[10].left);
     			attr_dev(line0, "x2", /*width*/ ctx[1]);
     			attr_dev(line0, "stroke", "black");
     			attr_dev(line0, "stroke-width", "2");
-    			add_location(line0, file$6, 146, 4, 4707);
+    			add_location(line0, file$6, 199, 4, 6342);
     			attr_dev(line1, "class", "error-axis-line");
-    			attr_dev(line1, "y1", /*margin*/ ctx[7].top);
-    			attr_dev(line1, "y2", line1_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom);
-    			attr_dev(line1, "x1", /*margin*/ ctx[7].left);
-    			attr_dev(line1, "x2", /*margin*/ ctx[7].left);
+    			attr_dev(line1, "y1", /*margin*/ ctx[10].top);
+    			attr_dev(line1, "y2", line1_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[10].bottom);
+    			attr_dev(line1, "x1", /*margin*/ ctx[10].left);
+    			attr_dev(line1, "x2", /*margin*/ ctx[10].left);
     			attr_dev(line1, "stroke", "black");
     			attr_dev(line1, "stroke-width", "2");
-    			add_location(line1, file$6, 157, 4, 4990);
-    			attr_dev(path0, "class", "outline-line svelte-1m2xw2c");
-    			attr_dev(path0, "d", path0_d_value = /*accuracyPath*/ ctx[5](errorData));
-    			add_location(path0, file$6, 167, 4, 5200);
-    			attr_dev(path1, "class", "path-line svelte-1m2xw2c");
-    			attr_dev(path1, "d", path1_d_value = /*accuracyPath*/ ctx[5](errorData));
+    			add_location(line1, file$6, 210, 4, 6625);
+    			attr_dev(path0, "class", "outline-line svelte-19pifqt");
+    			attr_dev(path0, "d", path0_d_value = /*accuracyPath*/ ctx[7](errorData));
+    			add_location(path0, file$6, 220, 4, 6835);
+    			attr_dev(path1, "class", "path-line svelte-19pifqt");
+    			attr_dev(path1, "d", path1_d_value = /*accuracyPath*/ ctx[7](errorData));
     			attr_dev(path1, "stroke", "#c9208a");
-    			add_location(path1, file$6, 168, 4, 5268);
-    			attr_dev(path2, "class", "outline-line svelte-1m2xw2c");
-    			attr_dev(path2, "d", path2_d_value = /*precisionPath*/ ctx[4](errorData));
-    			add_location(path2, file$6, 169, 4, 5350);
-    			attr_dev(path3, "class", "path-line svelte-1m2xw2c");
-    			attr_dev(path3, "d", path3_d_value = /*precisionPath*/ ctx[4](errorData));
+    			add_location(path1, file$6, 221, 4, 6903);
+    			attr_dev(path2, "class", "outline-line svelte-19pifqt");
+    			attr_dev(path2, "d", path2_d_value = /*precisionPath*/ ctx[6](errorData));
+    			add_location(path2, file$6, 222, 4, 6985);
+    			attr_dev(path3, "class", "path-line svelte-19pifqt");
+    			attr_dev(path3, "d", path3_d_value = /*precisionPath*/ ctx[6](errorData));
     			attr_dev(path3, "stroke", "#ab00d6");
-    			add_location(path3, file$6, 170, 4, 5419);
-    			attr_dev(text0, "class", "error-axis-label svelte-1m2xw2c");
-    			attr_dev(text0, "y", text0_y_value = /*height*/ ctx[0] + /*margin*/ ctx[7].bottom);
-    			attr_dev(text0, "x", text0_x_value = (/*width*/ ctx[1] + /*margin*/ ctx[7].left) / 2);
+    			add_location(path3, file$6, 223, 4, 7054);
+    			attr_dev(text0, "class", "error-axis-label svelte-19pifqt");
+    			attr_dev(text0, "y", text0_y_value = /*height*/ ctx[0] + /*margin*/ ctx[10].bottom);
+    			attr_dev(text0, "x", text0_x_value = (/*width*/ ctx[1] + /*margin*/ ctx[10].left) / 2);
     			attr_dev(text0, "text-anchor", "middle");
-    			add_location(text0, file$6, 174, 4, 5536);
-    			attr_dev(text1, "class", "error-axis-label svelte-1m2xw2c");
-    			attr_dev(text1, "y", /*margin*/ ctx[7].left / 3);
+    			add_location(text0, file$6, 227, 4, 7171);
+    			attr_dev(text1, "class", "error-axis-label svelte-19pifqt");
+    			attr_dev(text1, "y", /*margin*/ ctx[10].left / 3);
     			attr_dev(text1, "x", text1_x_value = -(/*height*/ ctx[0] / 2));
     			attr_dev(text1, "text-anchor", "middle");
     			attr_dev(text1, "transform", "rotate(-90)");
-    			add_location(text1, file$6, 180, 4, 5719);
-    			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[1] + /*margin*/ ctx[7].left + /*margin*/ ctx[7].right);
-    			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[0] + /*margin*/ ctx[7].top + /*margin*/ ctx[7].bottom);
-    			add_location(svg, file$6, 119, 2, 3903);
+    			add_location(text1, file$6, 233, 4, 7354);
+    			attr_dev(svg_1, "width", svg_1_width_value = /*width*/ ctx[1] + /*margin*/ ctx[10].left + /*margin*/ ctx[10].right);
+    			attr_dev(svg_1, "height", svg_1_height_value = /*height*/ ctx[0] + /*margin*/ ctx[10].top + /*margin*/ ctx[10].bottom);
+    			add_location(svg_1, file$6, 172, 2, 5538);
     			attr_dev(div1, "id", "error-chart");
-    			attr_dev(div1, "class", "svelte-1m2xw2c");
-    			add_render_callback(() => /*div1_elementresize_handler*/ ctx[9].call(div1));
-    			add_location(div1, file$6, 118, 0, 3825);
+    			attr_dev(div1, "class", "svelte-19pifqt");
+    			add_render_callback(() => /*div1_elementresize_handler*/ ctx[13].call(div1));
+    			add_location(div1, file$6, 171, 0, 5460);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -21867,40 +21953,76 @@ var app = (function () {
     			insert_dev(target, t1, anchor);
     			insert_dev(target, p0, anchor);
     			insert_dev(target, t3, anchor);
+    			insert_dev(target, form, anchor);
+    			append_dev(form, label);
+    			append_dev(form, t5);
+    			append_dev(form, input);
+    			set_input_value(input, /*placeholderScore*/ ctx[4]);
+    			append_dev(form, t6);
+    			append_dev(form, button);
+    			insert_dev(target, t8, anchor);
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, t9, anchor);
     			insert_dev(target, div0, anchor);
-    			insert_dev(target, t4, anchor);
+    			insert_dev(target, t10, anchor);
     			insert_dev(target, p1, anchor);
-    			insert_dev(target, t6, anchor);
+    			insert_dev(target, t12, anchor);
     			insert_dev(target, div1, anchor);
-    			append_dev(div1, svg);
+    			append_dev(div1, svg_1);
 
     			for (let i = 0; i < 5; i += 1) {
     				if (each_blocks_1[i]) {
-    					each_blocks_1[i].m(svg, null);
+    					each_blocks_1[i].m(svg_1, null);
     				}
     			}
 
-    			append_dev(svg, line0);
-    			append_dev(svg, line1);
-    			append_dev(svg, path0);
-    			append_dev(svg, path1);
-    			append_dev(svg, path2);
-    			append_dev(svg, path3);
-    			append_dev(svg, text0);
-    			append_dev(text0, t7);
-    			append_dev(svg, text1);
-    			append_dev(text1, t8);
+    			append_dev(svg_1, line0);
+    			append_dev(svg_1, line1);
+    			append_dev(svg_1, path0);
+    			append_dev(svg_1, path1);
+    			append_dev(svg_1, path2);
+    			append_dev(svg_1, path3);
+    			append_dev(svg_1, text0);
+    			append_dev(text0, t13);
+    			append_dev(svg_1, text1);
+    			append_dev(text1, t14);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				if (each_blocks[i]) {
-    					each_blocks[i].m(svg, null);
+    					each_blocks[i].m(svg_1, null);
     				}
     			}
 
-    			div1_resize_listener = add_iframe_resize_listener(div1, /*div1_elementresize_handler*/ ctx[9].bind(div1));
+    			div1_resize_listener = add_iframe_resize_listener(div1, /*div1_elementresize_handler*/ ctx[13].bind(div1));
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[12]),
+    					listen_dev(form, "submit", /*handleSubmit*/ ctx[8], false, false, false, false)
+    				];
+
+    				mounted = true;
+    			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*margin, accuracyScale, formatter, width*/ 202) {
+    			if (dirty & /*placeholderScore*/ 16 && to_number(input.value) !== /*placeholderScore*/ ctx[4]) {
+    				set_input_value(input, /*placeholderScore*/ ctx[4]);
+    			}
+
+    			if (/*error*/ ctx[5]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block(ctx);
+    					if_block.c();
+    					if_block.m(t9.parentNode, t9);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+
+    			if (dirty & /*margin, accuracyScale, formatter, width*/ 1546) {
     				each_value_1 = [0.2, 0.4, 0.6, 0.8, 1.0];
     				validate_each_argument(each_value_1);
     				let i;
@@ -21913,7 +22035,7 @@ var app = (function () {
     					} else {
     						each_blocks_1[i] = create_each_block_1(child_ctx);
     						each_blocks_1[i].c();
-    						each_blocks_1[i].m(svg, line0);
+    						each_blocks_1[i].m(svg_1, line0);
     					}
     				}
 
@@ -21922,11 +22044,11 @@ var app = (function () {
     				}
     			}
 
-    			if (dirty & /*height*/ 1 && line0_y__value !== (line0_y__value = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom)) {
+    			if (dirty & /*height*/ 1 && line0_y__value !== (line0_y__value = /*height*/ ctx[0] - /*margin*/ ctx[10].bottom)) {
     				attr_dev(line0, "y1", line0_y__value);
     			}
 
-    			if (dirty & /*height*/ 1 && line0_y__value_1 !== (line0_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom)) {
+    			if (dirty & /*height*/ 1 && line0_y__value_1 !== (line0_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[10].bottom)) {
     				attr_dev(line0, "y2", line0_y__value_1);
     			}
 
@@ -21934,31 +22056,31 @@ var app = (function () {
     				attr_dev(line0, "x2", /*width*/ ctx[1]);
     			}
 
-    			if (dirty & /*height*/ 1 && line1_y__value_1 !== (line1_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[7].bottom)) {
+    			if (dirty & /*height*/ 1 && line1_y__value_1 !== (line1_y__value_1 = /*height*/ ctx[0] - /*margin*/ ctx[10].bottom)) {
     				attr_dev(line1, "y2", line1_y__value_1);
     			}
 
-    			if (dirty & /*accuracyPath*/ 32 && path0_d_value !== (path0_d_value = /*accuracyPath*/ ctx[5](errorData))) {
+    			if (dirty & /*accuracyPath*/ 128 && path0_d_value !== (path0_d_value = /*accuracyPath*/ ctx[7](errorData))) {
     				attr_dev(path0, "d", path0_d_value);
     			}
 
-    			if (dirty & /*accuracyPath*/ 32 && path1_d_value !== (path1_d_value = /*accuracyPath*/ ctx[5](errorData))) {
+    			if (dirty & /*accuracyPath*/ 128 && path1_d_value !== (path1_d_value = /*accuracyPath*/ ctx[7](errorData))) {
     				attr_dev(path1, "d", path1_d_value);
     			}
 
-    			if (dirty & /*precisionPath*/ 16 && path2_d_value !== (path2_d_value = /*precisionPath*/ ctx[4](errorData))) {
+    			if (dirty & /*precisionPath*/ 64 && path2_d_value !== (path2_d_value = /*precisionPath*/ ctx[6](errorData))) {
     				attr_dev(path2, "d", path2_d_value);
     			}
 
-    			if (dirty & /*precisionPath*/ 16 && path3_d_value !== (path3_d_value = /*precisionPath*/ ctx[4](errorData))) {
+    			if (dirty & /*precisionPath*/ 64 && path3_d_value !== (path3_d_value = /*precisionPath*/ ctx[6](errorData))) {
     				attr_dev(path3, "d", path3_d_value);
     			}
 
-    			if (dirty & /*height*/ 1 && text0_y_value !== (text0_y_value = /*height*/ ctx[0] + /*margin*/ ctx[7].bottom)) {
+    			if (dirty & /*height*/ 1 && text0_y_value !== (text0_y_value = /*height*/ ctx[0] + /*margin*/ ctx[10].bottom)) {
     				attr_dev(text0, "y", text0_y_value);
     			}
 
-    			if (dirty & /*width*/ 2 && text0_x_value !== (text0_x_value = (/*width*/ ctx[1] + /*margin*/ ctx[7].left) / 2)) {
+    			if (dirty & /*width*/ 2 && text0_x_value !== (text0_x_value = (/*width*/ ctx[1] + /*margin*/ ctx[10].left) / 2)) {
     				attr_dev(text0, "x", text0_x_value);
     			}
 
@@ -21966,7 +22088,7 @@ var app = (function () {
     				attr_dev(text1, "x", text1_x_value);
     			}
 
-    			if (dirty & /*xScale, height, margin*/ 133) {
+    			if (dirty & /*xScale, height, margin*/ 1029) {
     				each_value = /*xScale*/ ctx[2].ticks();
     				validate_each_argument(each_value);
     				let i;
@@ -21979,7 +22101,7 @@ var app = (function () {
     					} else {
     						each_blocks[i] = create_each_block$2(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(svg, null);
+    						each_blocks[i].m(svg_1, null);
     					}
     				}
 
@@ -21990,12 +22112,12 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty & /*width*/ 2 && svg_width_value !== (svg_width_value = /*width*/ ctx[1] + /*margin*/ ctx[7].left + /*margin*/ ctx[7].right)) {
-    				attr_dev(svg, "width", svg_width_value);
+    			if (dirty & /*width*/ 2 && svg_1_width_value !== (svg_1_width_value = /*width*/ ctx[1] + /*margin*/ ctx[10].left + /*margin*/ ctx[10].right)) {
+    				attr_dev(svg_1, "width", svg_1_width_value);
     			}
 
-    			if (dirty & /*height*/ 1 && svg_height_value !== (svg_height_value = /*height*/ ctx[0] + /*margin*/ ctx[7].top + /*margin*/ ctx[7].bottom)) {
-    				attr_dev(svg, "height", svg_height_value);
+    			if (dirty & /*height*/ 1 && svg_1_height_value !== (svg_1_height_value = /*height*/ ctx[0] + /*margin*/ ctx[10].top + /*margin*/ ctx[10].bottom)) {
+    				attr_dev(svg_1, "height", svg_1_height_value);
     			}
     		},
     		i: noop,
@@ -22005,14 +22127,20 @@ var app = (function () {
     			if (detaching) detach_dev(t1);
     			if (detaching) detach_dev(p0);
     			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(form);
+    			if (detaching) detach_dev(t8);
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(t9);
     			if (detaching) detach_dev(div0);
-    			if (detaching) detach_dev(t4);
+    			if (detaching) detach_dev(t10);
     			if (detaching) detach_dev(p1);
-    			if (detaching) detach_dev(t6);
+    			if (detaching) detach_dev(t12);
     			if (detaching) detach_dev(div1);
     			destroy_each(each_blocks_1, detaching);
     			destroy_each(each_blocks, detaching);
     			div1_resize_listener();
+    			mounted = false;
+    			run_all(dispose);
     		}
     	};
 
@@ -22035,8 +22163,36 @@ var app = (function () {
     	let precisionPath;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('LineChart', slots, []);
+    	let data;
+
+    	//generalizing function for drawing curves
+    	function drawGC(meanScore, std, svg) {
+    		//TAKING ALL MATH SCORES FROM NONE TEST PREP
+    		//NOW WE GOTTA SVG THIS BABY UP WOOOHOOOOO
+    		const xValuesN = range(0, 100, 0.1);
+
+    		// makin scales 
+    		const xScaleN = linear().domain([0, 100]).range([50, 450]);
+
+    		const yScaleN = linear().domain([0, 1 / (std * Math.sqrt(2 * Math.PI))]).range([250, 50]);
+
+    		//values for the Gaussian curve
+    		const yValuesN = xValuesN.map(x => {
+    			const exponent = -Math.pow(x - meanScore, 2) / (2 * Math.pow(std, 2));
+    			return 1 / (std * Math.sqrt(2 * Math.PI)) * Math.exp(exponent);
+    		});
+
+    		const lineGenerator = line().x((d, i) => xScaleN(xValuesN[i])).y(d => yScaleN(d));
+
+    		// Draw Gaussian curve
+    		svg.append('path').datum(yValuesN).attr('d', lineGenerator).attr('fill', 'none').attr('stroke', 'red');
+    	}
+
+    	//calculating true mean, std
     	let meanScore = 0.0;
+
     	let std = 0.0;
+    	let svg;
 
     	//this is for gaussian curve
     	const marginGC = { top: 20, right: 20, bottom: 50, left: 50 };
@@ -22045,7 +22201,7 @@ var app = (function () {
     		console.log("mounted");
 
     		try {
-    			const data = await csv('/StudentsPerformance.csv');
+    			data = await csv('/StudentsPerformance.csv');
     			console.log(data[0]);
 
     			//TAKING ALL MATH SCORES FROM NONE TEST PREP
@@ -22059,7 +22215,7 @@ var app = (function () {
     			console.log(std);
 
     			//NOW WE GOTTA SVG THIS BABY UP WOOOHOOOOO
-    			const svg = select('#gaussian-curve').append('svg').attr('width', 500).attr('height', 300);
+    			svg = select('#gaussian-curve').append('svg').attr('width', 500).attr('height', 300);
 
     			const xValues = range(0, 100, 0.1);
 
@@ -22085,9 +22241,25 @@ var app = (function () {
     			svg.append('g').attr('transform', 'translate(50, 0)').call(axisLeft(yScale));
     		} catch(e) {
     			//shit something went wrong
-    			console.log("HEY SOMETHIN WENT WRONG IN LINECHART.SVELTE ITS BURNING AAAAAAA " + e);
+    			console.log("HEY SOMETHIN WENT WRONG IN LINECHART.SVELTE ITS BURNING AAAAAAA " + e); //drawGC(50, std, svg);
     		}
     	});
+
+    	let placeholderScore = 50;
+    	let error = '';
+
+    	function handleSubmit(event) {
+    		event.preventDefault();
+    		const usermean = parseFloat(placeholderScore);
+
+    		if (isNaN(usermean) || usermean < 0 || usermean > 100) {
+    			$$invalidate(5, error = 'Please enter a valid number for mean.');
+    			return;
+    		}
+
+    		$$invalidate(5, error = '');
+    		drawGC(usermean, std, svg);
+    	}
 
     	const formatter = format(".0%");
     	let height = 500;
@@ -22106,6 +22278,11 @@ var app = (function () {
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<LineChart> was created with unknown prop '${key}'`);
     	});
+
+    	function input_input_handler() {
+    		placeholderScore = to_number(this.value);
+    		$$invalidate(4, placeholderScore);
+    	}
 
     	function div1_elementresize_handler() {
     		width = this.offsetWidth;
@@ -22128,9 +22305,15 @@ var app = (function () {
     		range,
     		axisBottom,
     		axisLeft,
+    		data,
+    		drawGC,
     		meanScore,
     		std,
+    		svg,
     		marginGC,
+    		placeholderScore,
+    		error,
+    		handleSubmit,
     		formatter,
     		height,
     		width,
@@ -22144,15 +22327,19 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
+    		if ('data' in $$props) data = $$props.data;
     		if ('meanScore' in $$props) meanScore = $$props.meanScore;
     		if ('std' in $$props) std = $$props.std;
+    		if ('svg' in $$props) svg = $$props.svg;
+    		if ('placeholderScore' in $$props) $$invalidate(4, placeholderScore = $$props.placeholderScore);
+    		if ('error' in $$props) $$invalidate(5, error = $$props.error);
     		if ('height' in $$props) $$invalidate(0, height = $$props.height);
     		if ('width' in $$props) $$invalidate(1, width = $$props.width);
-    		if ('precisionScale' in $$props) $$invalidate(8, precisionScale = $$props.precisionScale);
+    		if ('precisionScale' in $$props) $$invalidate(11, precisionScale = $$props.precisionScale);
     		if ('xScale' in $$props) $$invalidate(2, xScale = $$props.xScale);
-    		if ('precisionPath' in $$props) $$invalidate(4, precisionPath = $$props.precisionPath);
+    		if ('precisionPath' in $$props) $$invalidate(6, precisionPath = $$props.precisionPath);
     		if ('accuracyScale' in $$props) $$invalidate(3, accuracyScale = $$props.accuracyScale);
-    		if ('accuracyPath' in $$props) $$invalidate(5, accuracyPath = $$props.accuracyPath);
+    		if ('accuracyPath' in $$props) $$invalidate(7, accuracyPath = $$props.accuracyPath);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -22169,15 +22356,15 @@ var app = (function () {
     		}
 
     		if ($$self.$$.dirty & /*height*/ 1) {
-    			$$invalidate(8, precisionScale = linear().domain([0.0, 1]).range([height - margin.bottom, margin.top]));
+    			$$invalidate(11, precisionScale = linear().domain([0.0, 1]).range([height - margin.bottom, margin.top]));
     		}
 
     		if ($$self.$$.dirty & /*xScale, accuracyScale*/ 12) {
-    			$$invalidate(5, accuracyPath = line().x(d => xScale(d.thresh)).y(d => accuracyScale(d.accuracy)).curve(curveStep));
+    			$$invalidate(7, accuracyPath = line().x(d => xScale(d.thresh)).y(d => accuracyScale(d.accuracy)).curve(curveStep));
     		}
 
-    		if ($$self.$$.dirty & /*xScale, precisionScale*/ 260) {
-    			$$invalidate(4, precisionPath = line().x(d => xScale(d.thresh)).y(d => precisionScale(d.precision)).curve(curveStep));
+    		if ($$self.$$.dirty & /*xScale, precisionScale*/ 2052) {
+    			$$invalidate(6, precisionPath = line().x(d => xScale(d.thresh)).y(d => precisionScale(d.precision)).curve(curveStep));
     		}
     	};
 
@@ -22186,11 +22373,15 @@ var app = (function () {
     		width,
     		xScale,
     		accuracyScale,
+    		placeholderScore,
+    		error,
     		precisionPath,
     		accuracyPath,
+    		handleSubmit,
     		formatter,
     		margin,
     		precisionScale,
+    		input_input_handler,
     		div1_elementresize_handler
     	];
     }
@@ -23510,19 +23701,26 @@ var app = (function () {
     function create_fragment$1(ctx) {
     	let h1;
     	let t1;
-    	let p;
+    	let p0;
+    	let t3;
+    	let p1;
 
     	const block = {
     		c: function create() {
     			h1 = element("h1");
     			h1.textContent = "Looking at Dataset";
     			t1 = space();
-    			p = element("p");
-    			p.textContent = "Below is data generated from a fictional compilation of students' exam scores across three core subjects: math, reading, and writing.\r\n    As a Data Scientist / Statistician, you want to give a";
+    			p0 = element("p");
+    			p0.textContent = "Below is data generated from a fictional compilation of students' exam scores across three core subjects: math, reading, and writing.\r\n    As a Data Scientist / Statistician, you want to give a rough estimate of the dataset's statistics like mean, standard deviations, etc.";
+    			t3 = space();
+    			p1 = element("p");
+    			p1.textContent = "However, sometimes the dataset is usually too big for you to give an analysis, since more datapoints usually implies low calculation speed. In this case, you would like to sample the dataset and run an analysis on that instead to save your time.";
     			attr_dev(h1, "class", "body-header");
     			add_location(h1, file, 3, 0, 23);
-    			attr_dev(p, "class", "body-text");
-    			add_location(p, file, 4, 0, 72);
+    			attr_dev(p0, "class", "body-text");
+    			add_location(p0, file, 4, 0, 72);
+    			attr_dev(p1, "class", "body-text");
+    			add_location(p1, file, 9, 0, 382);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -23530,7 +23728,9 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, h1, anchor);
     			insert_dev(target, t1, anchor);
-    			insert_dev(target, p, anchor);
+    			insert_dev(target, p0, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, p1, anchor);
     		},
     		p: noop,
     		i: noop,
@@ -23538,7 +23738,9 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(h1);
     			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(p);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(p1);
     		}
     	};
 

@@ -10,15 +10,46 @@
   import { select } from 'd3-selection';
   import { range } from 'd3-array';
   import { axisBottom, axisLeft } from 'd3-axis'; 
+  let data;
+  //generalizing function for drawing curves
+  function drawGC(meanScore, std, svg){
+      //TAKING ALL MATH SCORES FROM NONE TEST PREP
+      //NOW WE GOTTA SVG THIS BABY UP WOOOHOOOOO
+      const xValuesN = range(0, 100, 0.1);
+      // makin scales 
+      const xScaleN = scaleLinear()
+        .domain([0, 100])
+        .range([50, 450]);
+      const yScaleN = scaleLinear()
+        .domain([0, 1 / (std * Math.sqrt(2 * Math.PI))])
+        .range([250,50]);
+      //values for the Gaussian curve
+      const yValuesN = xValuesN.map(x => {
+        const exponent = -Math.pow(x - meanScore, 2) / (2 * Math.pow(std, 2));
+        return 1 / (std * Math.sqrt(2 * Math.PI)) * Math.exp(exponent);
+      });
+      const lineGenerator = line()
+        .x((d, i) => xScaleN(xValuesN[i]))
+        .y(d => yScaleN(d));
+      // Draw Gaussian curve
+      svg.append('path')
+        .datum(yValuesN)
+        .attr('d', lineGenerator)
+        .attr('fill', 'none')
+        .attr('stroke', 'red');
+  }
+
+
   //calculating true mean, std
   let meanScore = 0.0;
   let std = 0.0;
+  let svg;
   //this is for gaussian curve
   const marginGC = { top: 20, right: 20, bottom: 50, left: 50 };
   onMount(async() =>{
     console.log("mounted");
     try{
-      const data = await csv('/StudentsPerformance.csv');
+      data = await csv('/StudentsPerformance.csv');
       console.log(data[0])
       //TAKING ALL MATH SCORES FROM NONE TEST PREP
       const noprepData = data.filter(d => d['test preparation course'] == 'none');
@@ -29,7 +60,7 @@
       console.log(meanScore);
       console.log(std);
       //NOW WE GOTTA SVG THIS BABY UP WOOOHOOOOO
-      const svg = select('#gaussian-curve')
+      svg = select('#gaussian-curve')
         .append('svg')
         .attr('width', 500)
         .attr('height', 300);
@@ -62,12 +93,24 @@
       svg.append('g')
         .attr('transform', 'translate(50, 0)')
         .call(axisLeft(yScale));
+      //drawGC(50, std, svg);
     }catch(e){
       //shit something went wrong
       console.log("HEY SOMETHIN WENT WRONG IN LINECHART.SVELTE ITS BURNING AAAAAAA " + e);
     }
   });
-
+  let placeholderScore = 50;
+  let error = ''
+  function handleSubmit(event) {
+    event.preventDefault();
+    const usermean = parseFloat(placeholderScore);
+    if (isNaN(usermean) || usermean < 0 || usermean > 100) {
+      error = 'Please enter a valid number for mean.';
+      return;
+    }
+    error = '';
+    drawGC(usermean, std, svg);
+  }
 
   const formatter = format(".0%");
   
@@ -105,9 +148,19 @@
 
 <h1 class="body-header">Responsive, Static Chart Example</h1>
 <p class="body-text">
-  HEY BUDDY GUESS WHAT I LOVE DOING [COFFEE MILK] ANYWAYS HERES A SAMPLE GAUSSIAN CURVE WOOOHOOOOO
+  Belo
 
 </p>
+
+<form on:submit={handleSubmit} id = "drawForm">
+  <label for="mean">Mean:</label>
+  <input type="number" id="mean" bind:value={placeholderScore} step="any" required>
+  
+  <button type="submit">Draw Gaussian Curve</button>
+</form>
+{#if error}
+  <p style="color: red;" id = "error">{error}</p>
+{/if}
 <div id="gaussian-curve">
 
 </div>
@@ -196,11 +249,26 @@
 </div>
 
 <style>
+  #error{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #drawForm > button{
+    margin-left: 3vw;
+    padding: 0.25vw;
+    border-radius: 0.2vw;
+  }
+  #drawForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   #gaussian-curve{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 3vw;
+    padding: 1vw;
   }
   #error-chart {
     margin: auto;
