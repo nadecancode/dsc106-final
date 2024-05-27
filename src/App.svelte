@@ -8,11 +8,13 @@
   import Conclusion from "./Components/Conclusion.svelte";
   import Resources from "./Components/Resources.svelte";
   import ScrollSide from "./Components/ScrollSide.svelte";
+  import Dataset from './Components/Dataset.svelte';
 </script>
 
 <Meta />
 <Title />
 <Intro />
+<Dataset />
 <TextAndMathEquations />
 <ScrollSide />
 <LineChart />
