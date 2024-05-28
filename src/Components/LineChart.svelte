@@ -32,11 +32,19 @@
         .x((d, i) => xScaleN(xValuesN[i]))
         .y(d => yScaleN(d));
       // Draw Gaussian curve
-      svg.append('path')
-        .datum(yValuesN)
-        .attr('d', lineGenerator)
-        .attr('fill', 'none')
-        .attr('stroke', 'red');
+
+    let path = svg.select('path.gaussian-curve');
+
+    if (path.empty()) {
+      // Append a new path if it doesn't exist
+      path = svg.append('path')
+              .attr('class', 'gaussian-curve')
+              .attr('fill', 'none')
+              .attr('stroke', 'red');
+    }
+
+    path.datum(yValuesN)
+            .attr('d', lineGenerator);
   }
 
 
@@ -50,10 +58,11 @@
     console.log("mounted");
     try{
       data = await csv('/StudentsPerformance.csv');
+
       console.log(data[0])
       //TAKING ALL MATH SCORES FROM NONE TEST PREP
       const noprepData = data.filter(d => d['test preparation course'] == 'none');
-      const scores = noprepData.map(d => +d['math score']);
+      const scores = data.map(d => +d['writing score']);
       console.log(noprepData)
       meanScore = mean(scores);
       std = deviation(scores);
@@ -99,21 +108,15 @@
       console.log("HEY SOMETHIN WENT WRONG IN LINECHART.SVELTE ITS BURNING AAAAAAA " + e);
     }
   });
+
   let placeholderScore = 50;
-  let error = ''
-  function handleSubmit(event) {
-    event.preventDefault();
-    const usermean = parseFloat(placeholderScore);
-    if (isNaN(usermean) || usermean < 0 || usermean > 100) {
-      error = 'Please enter a valid number for mean.';
-      return;
-    }
-    error = '';
-    drawGC(usermean, std, svg);
+
+  $: {
+    if (svg)
+      drawGC(placeholderScore, std, svg);
   }
 
   const formatter = format(".0%");
-  
 
   let height = 500;
   let width = 500;
@@ -152,15 +155,11 @@
 
 </p>
 
-<form on:submit={handleSubmit} id = "drawForm">
+<div id="drawForm">
   <label for="mean">Mean:</label>
-  <input type="number" id="mean" bind:value={placeholderScore} step="any" required>
-  
-  <button type="submit">Draw Gaussian Curve</button>
-</form>
-{#if error}
-  <p style="color: red;" id = "error">{error}</p>
-{/if}
+  <input type="range" min="0" max="100" id="mean" bind:value={placeholderScore} step="any" required>
+</div>
+
 <div id="gaussian-curve">
 
 </div>

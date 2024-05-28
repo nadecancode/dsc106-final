@@ -9,15 +9,23 @@
   import Resources from "./Components/Resources.svelte";
   import ScrollSide from "./Components/ScrollSide.svelte";
   import Dataset from './Components/Dataset.svelte';
+  import CollectSample from "./Components/CollectSample.svelte";
+  import Hypothesis from "./Components/Hypothesis.svelte";
+  import Confidence from "./Components/Confidence.svelte";
+  import TypeOne from "./Components/TypeOne.svelte";
+  import TypeTwo from "./Components/TypeTwo.svelte";
+  import Power from "./Components/Power.svelte";
 </script>
 
 <Meta />
 <Title />
 <Intro />
 <Dataset />
-<TextAndMathEquations />
-<ScrollSide />
-<LineChart />
-<ScrollCenter />
+<Hypothesis />
+<CollectSample />
+<Confidence />
+<TypeOne />
+<TypeTwo />
+<Power />
 <Conclusion />
 <Resources />
