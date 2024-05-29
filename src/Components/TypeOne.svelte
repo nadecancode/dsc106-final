@@ -14,7 +14,7 @@
         svg = select('#type-one')
             .append('svg')
             .attr('width', 500)
-            .attr('height', 300);
+            .attr('height', 325);
 
         const sampleStd = Math.pow(std, 2) / $sampleSize;
 

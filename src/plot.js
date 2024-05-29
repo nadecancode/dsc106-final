@@ -3,6 +3,7 @@ import { scaleLinear } from "d3-scale";
 
 import { jStat } from 'jstat';
 import {range} from "d3-array";
+import {axisBottom, axisLeft} from "d3-axis";
 
 export function drawAndShadeGC(meanScore, std, confidence, svg) {
     // Define the range for x values as 3 standard deviations from the mean
@@ -91,25 +92,12 @@ export function drawAndShadeGC(meanScore, std, confidence, svg) {
     svg.selectAll('.annotation').remove();
 
     // Append marker definitions for arrows
-    const defs = svg.append('defs');
-
-    defs.append('marker')
-        .attr('id', 'arrow')
-        .attr('viewBox', '0 -5 10 10')
-        .attr('refX', 5)
-        .attr('refY', 0)
-        .attr('markerWidth', 6)
-        .attr('markerHeight', 6)
-        .attr('orient', 'auto')
-        .append('path')
-        .attr('d', 'M0,-5L10,0L0,5')
-        .attr('class', 'arrowHead');
 
     // Axis annotation for mean
     svg.append('text')
         .attr('class', 'annotation')
         .attr('x', xScaleN(meanScore))
-        .attr('y', yScaleN(0) + 20)
+        .attr('y', yScaleN(0) + 30)
         .attr('text-anchor', 'middle')
         .attr('font-size', '12px')
         .text('\u03BC_0 = 69');
@@ -132,4 +120,21 @@ export function drawAndShadeGC(meanScore, std, confidence, svg) {
         .attr('y2', yScaleN(1 / (std * Math.sqrt(2 * Math.PI))))
         .attr('stroke', 'black')
         .attr('stroke-dasharray', '5,5');
+
+    svg.append('text')
+        .attr('class', 'annotation')
+        .attr('x', xScaleN((criticalValueLeft + criticalValueRight) / 2))
+        .attr('y', yScaleN(0) + 50)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '12px')
+        .text(`Confidence Interval: [${criticalValueLeft.toFixed(2)}, ${criticalValueRight.toFixed(2)}]`);
+
+    svg.append('g')
+        .attr('class', 'annotation')
+        .attr('transform', 'translate(0, 250)')
+        .call(axisBottom(xScaleN));
+    svg.append('g')
+        .attr('class', 'annotation')
+        .attr('transform', 'translate(50, 0)')
+        .call(axisLeft(yScaleN));
 }
