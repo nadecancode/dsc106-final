@@ -16,7 +16,8 @@
 <br />
 <div class="centered">
     <label for="sample">Confidence Level:</label>
-    <input type="number" min="0" max="1" bind:value={$confidenceLevel}/>
+    <input type="range" min="0" max="1" step="0.01" bind:value={$confidenceLevel}/>
+    <p>Numerical Value: {$confidenceLevel}</p>
 </div>
 
 <style>

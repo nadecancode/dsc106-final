@@ -5,6 +5,105 @@ import { jStat } from 'jstat';
 import {range} from "d3-array";
 import {axisBottom, axisLeft} from "d3-axis";
 
+export function drawAndShadeGC2(meanScoreNull, meanScoreAlt, std, confidence, svg) {
+    // Define the range for x values as 3 standard deviations from the mean
+    const xmin = Math.min(meanScoreNull - 3 * std, meanScoreAlt - 3 * std);
+    const xmax = Math.max(meanScoreNull + 3 * std, meanScoreAlt + 3 * std);
+
+    const xValuesN = range(xmin, xmax, 0.1);
+
+    // Create scales
+    const xScaleN = scaleLinear()
+        .domain([xmin, xmax])
+        .range([50, 450]);
+    const yScaleN = scaleLinear()
+        .domain([0, 1 / (std * Math.sqrt(2 * Math.PI))])
+        .range([250, 50]);
+
+    const yScaleA = scaleLinear()
+        .domain([0, 1 / (std * Math.sqrt(2 * Math.PI))])
+        .range([250, 50]);
+
+    // Compute y values for the Gaussian curve
+    const yValuesN = xValuesN.map(x => {
+        const exponent = -Math.pow(x - meanScoreNull, 2) / (2 * Math.pow(std, 2));
+        return 1 / (std * Math.sqrt(2 * Math.PI)) * Math.exp(exponent);
+    });
+
+    const yValuesA = xValuesN.map(x => {
+        const exponent = -Math.pow(x - meanScoreAlt, 2) / (2 * Math.pow(std, 2));
+        return 1 / (std * Math.sqrt(2 * Math.PI)) * Math.exp(exponent);
+    });
+
+    // Create line generator
+    const lineGenerator = line()
+        .x((d, i) => xScaleN(xValuesN[i]))
+        .y(d => yScaleN(d));
+
+    const lineGeneratorA = line()
+        .x((d, i) => xScaleN(xValuesN[i]))
+        .y(d => yScaleA(d));
+
+    // Draw Gaussian curve
+    let path = svg.select('path.gaussian-curve');
+
+    if (path.empty()) {
+        // Append a new path if it doesn't exist
+        path = svg.append('path')
+            .attr('class', 'gaussian-curve')
+            .attr('fill', 'none')
+            .attr('stroke', 'red');
+    }
+
+    let pathA = svg.select("path.alt-curve");
+    if (pathA.empty()) {
+        pathA = svg.append('path')
+            .attr('class', 'alt-curve')
+            .attr('fill', 'none')
+            .attr('stroke', 'blue');
+    }
+
+
+    path.datum(yValuesN)
+        .attr('d', lineGenerator);
+
+    pathA.datum(yValuesA)
+        .attr('d', lineGeneratorA);
+
+    // Remove existing annotations
+    svg.selectAll('.annotation').remove();
+
+    // Append marker definitions for arrows
+
+    svg.append('g')
+        .attr('class', 'annotation')
+        .attr('transform', 'translate(0, 250)')
+        .call(axisBottom(xScaleN));
+    svg.append('g')
+        .attr('class', 'annotation')
+        .attr('transform', 'translate(50, 0)')
+        .call(axisLeft(yScaleN));
+
+    svg.append('text')
+        .attr('class', 'annotation')
+        .attr('x', xScaleN(meanScoreNull))
+        .attr('y', yScaleN(0) + 30)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '12px')
+        .attr('fill', 'red')
+        .text('\u03BC_0 = ' + meanScoreNull);
+
+    svg.append('text')
+        .attr('class', 'annotation')
+        .attr('x', xScaleN(meanScoreAlt))
+        .attr('y', yScaleN(0) + 40)
+        .attr('text-anchor', 'middle')
+        .attr('fill', 'blue')
+        .attr('font-size', '12px')
+        .text('\u03BC_1 = ' + meanScoreAlt);
+}
+
+
 export function drawAndShadeGC(meanScore, std, confidence, svg) {
     // Define the range for x values as 3 standard deviations from the mean
     const xValuesN = range(meanScore - 3 * std, meanScore + 3 * std, 0.1);

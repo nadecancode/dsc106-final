@@ -11,13 +11,13 @@
 <p class="body-text">
     We went ahead and did a bit of analysis on the dataset for you. Let's say the average reading score for every student in this dataset is approximately {@html katexify(
     "\\mu \\approx 69"
-)} and the standard deviation is approximately {@html katexify(
+)} and the population's standard deviation is approximately {@html katexify(
     "\\sigma \\approx 14.6"
 )}
 </p>
 <br/>
 <p class="body-text">
-    Now we have some information about the dataset, let's ask ourselves a question: Will the students have roughly same average reading scores, or will they be different? Let's say here, you expect the writing scores to be roughly equal and anything that is your "Null Hypothesis", which the opposite is your "Alternative Hypothesis". In other words, we have our {@html katexify(
+    Now we have some information about the dataset, let's ask ourselves a question: Will the students have roughly same average writing scores, or will they be different? Let's say here, you expect the writing scores to be roughly equal and anything that is your "Null Hypothesis", which the opposite is your "Alternative Hypothesis". In other words, we have our {@html katexify(
     "\H_0: \\mu = 69"
 )} and {@html katexify(
     "\H_1: \\mu <> 69"
