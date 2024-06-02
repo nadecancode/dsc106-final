@@ -44,13 +44,13 @@
 
 </div>
 <p class="body-text">
-    The red-shaded region are quantities where we reject the Null Hypothesis, and the unshaded region is where we keep the Null Hypothesis.
+    The red-shaded region are quantities where we keep the Null Hypothesis, and the unshaded region is where we reject the Null Hypothesis.
 </p>
 
 <br />
 
 <p class="body-text">
-    Area Under Red Curve: {1 - $confidenceLevel}
+    Area Under Red Curve: {0.5 + $confidenceLevel / 2}
 </p>
 
 <br />

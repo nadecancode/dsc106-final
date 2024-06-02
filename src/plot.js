@@ -1,6 +1,8 @@
 import { line, curveStep, area } from "d3-shape";
 import { scaleLinear } from "d3-scale";
 
+import { qnorm, pnorm } from './helper';
+
 import { jStat } from 'jstat';
 import {range} from "d3-array";
 import {axisBottom, axisLeft} from "d3-axis";
@@ -101,6 +103,32 @@ export function drawAndShadeGC2(meanScoreNull, meanScoreAlt, std, confidence, sv
         .attr('fill', 'blue')
         .attr('font-size', '12px')
         .text('\u03BC_1 = ' + meanScoreAlt);
+
+    const alpha = 1 - confidence;
+    const c = qnorm(alpha, meanScoreNull, std);
+
+    svg.append('line')
+        .attr('x1', xScaleN(c))
+        .attr('y1', yScaleN(0))
+        .attr('x2', xScaleN(c))
+        .attr('y2', yScaleN(1 / (std * Math.sqrt(2 * Math.PI))))
+        .attr('stroke', 'blue')
+        .attr('stroke-dasharray', '5,5')
+        .attr('stroke-width', 2);
+
+    svg.append('text')
+        .attr('x', xScaleN(c))
+        .attr('y', yScaleN(0) - 50)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '12px')
+        .attr('fill', 'blue')
+        .text(`c = ${c}`);
+
+    const beta = pnorm(c, meanScoreAlt, std);
+
+    console.log(beta);
+
+
 }
 
 
@@ -148,12 +176,7 @@ export function drawAndShadeGC(meanScore, std, confidence, svg) {
     const criticalValueRight = meanScore + zCritical * std;
 
     // Generate shaded area paths for the critical regions
-    const shadedDataLeft = xValuesN.filter(x => x <= criticalValueLeft).map(x => ({
-        x,
-        y: 1 / (std * Math.sqrt(2 * Math.PI)) * Math.exp(-Math.pow(x - meanScore, 2) / (2 * Math.pow(std, 2)))
-    }));
-
-    const shadedDataRight = xValuesN.filter(x => x >= criticalValueRight).map(x => ({
+    const shadedDataLeft = xValuesN.filter(x => x <= criticalValueRight).map(x => ({
         x,
         y: 1 / (std * Math.sqrt(2 * Math.PI)) * Math.exp(-Math.pow(x - meanScore, 2) / (2 * Math.pow(std, 2)))
     }));
@@ -164,27 +187,15 @@ export function drawAndShadeGC(meanScore, std, confidence, svg) {
         .y0(yScaleN(0))
         .y1(d => yScaleN(d.y));
 
-    // Select the shaded areas if they exist, otherwise append new ones
-    let shadedAreaLeft = svg.select('path.shaded-area-left');
-    let shadedAreaRight = svg.select('path.shaded-area-right');
+    let shadedAreaLeft = svg.select('path.shaded-area-right');
 
     if (shadedAreaLeft.empty()) {
         shadedAreaLeft = svg.append('path')
-            .attr('class', 'shaded-area-left')
-            .attr('fill', 'rgba(255, 0, 0, 0.5)');
-    }
-
-    if (shadedAreaRight.empty()) {
-        shadedAreaRight = svg.append('path')
             .attr('class', 'shaded-area-right')
             .attr('fill', 'rgba(255, 0, 0, 0.5)');
     }
 
-    // Update the shaded areas with new data
     shadedAreaLeft.datum(shadedDataLeft)
-        .attr('d', areaGenerator);
-
-    shadedAreaRight.datum(shadedDataRight)
         .attr('d', areaGenerator);
 
     // Remove existing annotations
@@ -201,16 +212,6 @@ export function drawAndShadeGC(meanScore, std, confidence, svg) {
         .attr('font-size', '12px')
         .text('\u03BC_0 = 69');
 
-    // Lines for critical values
-    svg.append('line')
-        .attr('class', 'annotation')
-        .attr('x1', xScaleN(criticalValueLeft))
-        .attr('y1', yScaleN(0))
-        .attr('x2', xScaleN(criticalValueLeft))
-        .attr('y2', yScaleN(1 / (std * Math.sqrt(2 * Math.PI))))
-        .attr('stroke', 'black')
-        .attr('stroke-dasharray', '5,5');
-
     svg.append('line')
         .attr('class', 'annotation')
         .attr('x1', xScaleN(criticalValueRight))
@@ -226,7 +227,7 @@ export function drawAndShadeGC(meanScore, std, confidence, svg) {
         .attr('y', yScaleN(0) + 50)
         .attr('text-anchor', 'middle')
         .attr('font-size', '12px')
-        .text(`Confidence Interval: [${criticalValueLeft.toFixed(2)}, ${criticalValueRight.toFixed(2)}]`);
+        .text(`Confidence Interval: [0, ${Math.max(0, criticalValueRight.toFixed(2))}]`);
 
     svg.append('g')
         .attr('class', 'annotation')
