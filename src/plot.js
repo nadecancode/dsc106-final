@@ -175,8 +175,7 @@ export function drawAndShadeGC(meanScore, std, confidence, svg) {
     const criticalValueLeft = meanScore - zCritical * std;
     const criticalValueRight = meanScore + zCritical * std;
 
-    // Generate shaded area paths for the critical regions
-    const shadedDataLeft = xValuesN.filter(x => x <= criticalValueRight).map(x => ({
+    const shadedDataRight = xValuesN.filter(x => x >= criticalValueRight).map(x => ({
         x,
         y: 1 / (std * Math.sqrt(2 * Math.PI)) * Math.exp(-Math.pow(x - meanScore, 2) / (2 * Math.pow(std, 2)))
     }));
@@ -187,15 +186,15 @@ export function drawAndShadeGC(meanScore, std, confidence, svg) {
         .y0(yScaleN(0))
         .y1(d => yScaleN(d.y));
 
-    let shadedAreaLeft = svg.select('path.shaded-area-right');
+    let shadedAreaRight = svg.select('path.shaded-area-right');
 
-    if (shadedAreaLeft.empty()) {
-        shadedAreaLeft = svg.append('path')
+    if (shadedAreaRight.empty()) {
+        shadedAreaRight = svg.append('path')
             .attr('class', 'shaded-area-right')
             .attr('fill', 'rgba(255, 0, 0, 0.5)');
     }
 
-    shadedAreaLeft.datum(shadedDataLeft)
+    shadedAreaRight.datum(shadedDataRight)
         .attr('d', areaGenerator);
 
     // Remove existing annotations

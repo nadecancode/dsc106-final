@@ -25425,7 +25425,6 @@ var app = (function () {
     	let t10;
     	let html_tag_3;
     	let raw3_value = katexify("\H_1: \\mu > 69") + "";
-    	let t11;
 
     	const block = {
     		c: function create() {
@@ -25450,7 +25449,6 @@ var app = (function () {
     			html_tag_2 = new HtmlTag(false);
     			t10 = text$1(" and ");
     			html_tag_3 = new HtmlTag(false);
-    			t11 = text$1(" (\"not equal\")");
     			attr_dev(h1, "class", "body-header");
     			add_location(h1, file$4, 4, 0, 64);
     			attr_dev(p0, "class", "body-text");
@@ -25462,7 +25460,7 @@ var app = (function () {
     			add_location(p1, file$4, 10, 0, 351);
     			add_location(br1, file$4, 17, 0, 688);
     			html_tag_2.a = t10;
-    			html_tag_3.a = t11;
+    			html_tag_3.a = null;
     			attr_dev(p2, "class", "body-text");
     			add_location(p2, file$4, 18, 0, 695);
     		},
@@ -25489,7 +25487,6 @@ var app = (function () {
     			html_tag_2.m(raw2_value, p2);
     			append_dev(p2, t10);
     			html_tag_3.m(raw3_value, p2);
-    			append_dev(p2, t11);
     		},
     		p: noop,
     		i: noop,
@@ -30977,8 +30974,7 @@ var app = (function () {
         const criticalValueLeft = meanScore - zCritical * std;
         const criticalValueRight = meanScore + zCritical * std;
 
-        // Generate shaded area paths for the critical regions
-        const shadedDataLeft = xValuesN.filter(x => x <= criticalValueRight).map(x => ({
+        const shadedDataRight = xValuesN.filter(x => x >= criticalValueRight).map(x => ({
             x,
             y: 1 / (std * Math.sqrt(2 * Math.PI)) * Math.exp(-Math.pow(x - meanScore, 2) / (2 * Math.pow(std, 2)))
         }));
@@ -30989,15 +30985,15 @@ var app = (function () {
             .y0(yScaleN(0))
             .y1(d => yScaleN(d.y));
 
-        let shadedAreaLeft = svg.select('path.shaded-area-right');
+        let shadedAreaRight = svg.select('path.shaded-area-right');
 
-        if (shadedAreaLeft.empty()) {
-            shadedAreaLeft = svg.append('path')
+        if (shadedAreaRight.empty()) {
+            shadedAreaRight = svg.append('path')
                 .attr('class', 'shaded-area-right')
                 .attr('fill', 'rgba(255, 0, 0, 0.5)');
         }
 
-        shadedAreaLeft.datum(shadedDataLeft)
+        shadedAreaRight.datum(shadedDataRight)
             .attr('d', areaGenerator);
 
         // Remove existing annotations
@@ -31057,7 +31053,7 @@ var app = (function () {
     	let t7;
     	let p2;
     	let t8;
-    	let t9_value = 0.5 + /*$confidenceLevel*/ ctx[0] / 2 + "";
+    	let t9_value = 1 - (0.5 + /*$confidenceLevel*/ ctx[0] / 2) + "";
     	let t9;
     	let t10;
     	let br1;
@@ -31086,7 +31082,7 @@ var app = (function () {
     			div = element("div");
     			t4 = space();
     			p1 = element("p");
-    			p1.textContent = "The red-shaded region are quantities where we keep the Null Hypothesis, and the unshaded region is where we reject the Null Hypothesis.";
+    			p1.textContent = "The red-shaded region are quantities where we reject the Null Hypothesis, and the unshaded region is where we keep the Null Hypothesis.";
     			t6 = space();
     			br0 = element("br");
     			t7 = space();
@@ -31121,16 +31117,16 @@ var app = (function () {
     			add_location(br0, file$2, 49, 0, 1404);
     			attr_dev(p2, "class", "body-text");
     			add_location(p2, file$2, 51, 0, 1414);
-    			add_location(br1, file$2, 55, 0, 1501);
+    			add_location(br1, file$2, 55, 0, 1507);
     			attr_dev(p3, "class", "body-text");
-    			add_location(p3, file$2, 57, 0, 1511);
-    			add_location(br2, file$2, 61, 0, 1749);
+    			add_location(p3, file$2, 57, 0, 1517);
+    			add_location(br2, file$2, 61, 0, 1755);
     			html_tag.a = null;
     			attr_dev(p4, "class", "body-text");
-    			add_location(p4, file$2, 63, 0, 1759);
-    			add_location(br3, file$2, 69, 0, 1913);
+    			add_location(p4, file$2, 63, 0, 1765);
+    			add_location(br3, file$2, 69, 0, 1919);
     			attr_dev(p5, "class", "body-text");
-    			add_location(p5, file$2, 71, 0, 1923);
+    			add_location(p5, file$2, 71, 0, 1929);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -31165,7 +31161,7 @@ var app = (function () {
     			insert_dev(target, p5, anchor);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*$confidenceLevel*/ 1 && t9_value !== (t9_value = 0.5 + /*$confidenceLevel*/ ctx[0] / 2 + "")) set_data_dev(t9, t9_value);
+    			if (dirty & /*$confidenceLevel*/ 1 && t9_value !== (t9_value = 1 - (0.5 + /*$confidenceLevel*/ ctx[0] / 2) + "")) set_data_dev(t9, t9_value);
     		},
     		i: noop,
     		o: noop,
