@@ -24,7 +24,7 @@
         if (svg) {
             const sampleStd = Math.pow(std, 2) / $sampleSize;
 
-            drawAndShadeGC(meanScore, sampleStd, $confidenceLevel, svg);
+            drawAndShadeGC2(meanScore, 68.4, sampleStd, $confidenceLevel, svg);
         }
     }
 </script>

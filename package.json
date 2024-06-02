@@ -32,6 +32,7 @@
     "sirv-cli": "^1.0.0",
     "smoothscroll-polyfill": "^0.4.4",
     "stickyfill": "^1.1.1-strict",
-    "svelte-preprocess": "^4.6.9"
+    "svelte-preprocess": "^4.6.9",
+    "svelte-virtual-table": "^2.0.0"
   }
 }
