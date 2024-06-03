@@ -10,7 +10,7 @@
 
 <br />
 <p class="body-text">
-    Enter a confidence level between 0 and 1 below. The lower you go means you are more confident about your Alternative Hypothesis.
+    Choose a confidence level between 0 and 1 below. The lower you go means you are more confident about your Alternative Hypothesis.
 </p>
 
 <br />

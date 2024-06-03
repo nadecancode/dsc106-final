@@ -16,14 +16,14 @@
             .attr('width', 500)
             .attr('height', 325);
 
-        const sampleStd = Math.pow(std, 2) / $sampleSize;
+        const sampleStd = std / Math.sqrt($sampleSize);
 
         drawAndShadeGC(meanScore, sampleStd, $confidenceLevel, svg);
     });
 
     $: {
         if (svg) {
-            const sampleStd = Math.pow(std, 2) / $sampleSize;
+            const sampleStd = std / Math.sqrt($sampleSize);
 
             drawAndShadeGC(meanScore, sampleStd, $confidenceLevel, svg);
         }
@@ -35,7 +35,7 @@
 </h1>
 
 <p class="body-text">
-    By the definition of Type I Error, it is the probability of we reject the Null Hypothesis under the assumption that the sample distribution agrees with our Null Hypothesis.
+    By the definition of Type I Error, it is the probability of we reject the Null Hypothesis under the assumption that the sample distribution agrees with our Null Hypothesis. In the context of this dataset, it is the probability when we think the students have scored better on writing tests than reading tests, but in reality they have scored about the same (false positive).
 
     Below is a curve modeled after the sample distribution with the assumption that our Null Hypothesis is true:
 </p>
@@ -50,7 +50,7 @@
 <br />
 
 <p class="body-text">
-    Area Under Red Curve: {1 - (0.5 + $confidenceLevel / 2)}
+    Area Under Red Curve: {1 - $confidenceLevel}
 </p>
 
 <br />

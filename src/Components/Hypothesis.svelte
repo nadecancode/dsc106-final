@@ -21,5 +21,5 @@
     "\H_0: \\mu = 69"
 )} and {@html katexify(
     "\H_1: \\mu > 69"
-)} ("not equal")
+)}
 </p>

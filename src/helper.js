@@ -1,8 +1,8 @@
 // Cumulative distribution function for the standard normal distribution
-export function pnorm(x, mean = 0, stdDev = 1) {
-    // Using the error function (erf) approximation
+export function pnorm(x, mean = 0, stdDev = 1, lowerTail = true) {
     const z = (x - mean) / Math.sqrt(2 * stdDev * stdDev);
-    return 0.5 * (1 + erf(z));
+    const cdf = 0.5 * (1 + erf(z));
+    return lowerTail ? cdf : 1 - cdf;
 }
 
 // Error function approximation
@@ -27,10 +27,14 @@ function erf(x) {
 }
 
 // Quantile function for the standard normal distribution
-export function qnorm(p, mean = 0, stdDev = 1) {
+export function qnorm(p, mean = 0, stdDev = 1, lowerTail = true) {
     // Using the Beasley-Springer-Moro algorithm for approximation
     if (p < 0 || p > 1) {
         throw new Error('The probability p must be between 0 and 1.');
+    }
+
+    if (!lowerTail) {
+        p = 1 - p;
     }
 
     const a1 = -39.6968302866538;

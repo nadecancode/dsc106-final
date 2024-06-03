@@ -105,30 +105,75 @@ export function drawAndShadeGC2(meanScoreNull, meanScoreAlt, std, confidence, sv
         .text('\u03BC_1 = ' + meanScoreAlt);
 
     const alpha = 1 - confidence;
-    const c = qnorm(alpha, meanScoreNull, std);
+    const c = qnorm(alpha, meanScoreNull, std, false);
 
-    svg.append('line')
-        .attr('x1', xScaleN(c))
-        .attr('y1', yScaleN(0))
-        .attr('x2', xScaleN(c))
-        .attr('y2', yScaleN(1 / (std * Math.sqrt(2 * Math.PI))))
-        .attr('stroke', 'blue')
-        .attr('stroke-dasharray', '5,5')
-        .attr('stroke-width', 2);
+    if (!Number.isNaN(c)) {
+        svg.append('line')
+            .attr('class', 'annotation')
+            .attr('x1', xScaleN(c))
+            .attr('y1', yScaleN(0))
+            .attr('x2', xScaleN(c))
+            .attr('y2', yScaleN(1 / (std * Math.sqrt(2 * Math.PI))))
+            .attr('stroke', 'blue')
+            .attr('stroke-dasharray', '5,5')
+            .attr('stroke-width', 2);
 
-    svg.append('text')
-        .attr('x', xScaleN(c))
-        .attr('y', yScaleN(0) - 50)
-        .attr('text-anchor', 'middle')
-        .attr('font-size', '12px')
-        .attr('fill', 'blue')
-        .text(`c = ${c}`);
+        svg.append('text')
+            .attr('class', 'annotation')
+            .attr('x', xScaleN(c))
+            .attr('y', yScaleN(0) - 210)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '12px')
+            .attr('fill', 'blue')
+            .text(`c = ${c}`);
 
-    const beta = pnorm(c, meanScoreAlt, std);
+        const shadedDataRight = xValuesN.filter(x => x >= c).map(x => ({
+            x,
+            y: 1 / (std * Math.sqrt(2 * Math.PI)) * Math.exp(-Math.pow(x - meanScoreNull, 2) / (2 * Math.pow(std, 2)))
+        }));
 
-    console.log(beta);
+        // Create area generator
+        const areaGenerator = area()
+            .x(d => xScaleN(d.x))
+            .y0(yScaleN(0))
+            .y1(d => yScaleN(d.y));
 
+        let shadedAreaRight = svg.select('path.shaded-area-right');
 
+        if (shadedAreaRight.empty()) {
+            shadedAreaRight = svg.append('path')
+                .attr('class', 'shaded-area-right')
+                .attr('fill', 'rgba(255, 0, 0, 0.5)');
+        }
+
+        shadedAreaRight.datum(shadedDataRight)
+            .attr('d', areaGenerator);
+
+        const shadedDataLeft = xValuesN.filter(x => x <= c).map(x => ({
+            x,
+            y: 1 / (std * Math.sqrt(2 * Math.PI)) * Math.exp(-Math.pow(x - meanScoreAlt, 2) / (2 * Math.pow(std, 2)))
+        }));
+
+        // Create area generator
+        const areaGeneratorL = area()
+            .x(d => xScaleN(d.x))
+            .y0(yScaleA(0))
+            .y1(d => yScaleA(d.y));
+
+        let shadedAreaLeft = svg.select('path.shaded-area-left');
+
+        if (shadedAreaLeft.empty()) {
+            shadedAreaLeft = svg.append('path')
+                .attr('class', 'shaded-area-left')
+                .attr('fill', 'rgba(0, 0, 255, 0.5)');
+        }
+
+        shadedAreaLeft.datum(shadedDataLeft)
+            .attr('d', areaGeneratorL);
+    } else {
+        svg.select('path.shaded-area-left').remove();
+        svg.select('path.shaded-area-right').remove();
+    }
 }
 
 
@@ -171,7 +216,7 @@ export function drawAndShadeGC(meanScore, std, confidence, svg) {
 
     // Calculate critical values for shading based on the confidence level
     const alpha = 1 - confidence;
-    const zCritical = jStat.normal.inv(1 - alpha / 2, 0, 1); // Using jStat for normal distribution
+    const zCritical = jStat.normal.inv(1 - alpha, 0, 1); // Using jStat for normal distribution
     const criticalValueLeft = meanScore - zCritical * std;
     const criticalValueRight = meanScore + zCritical * std;
 
