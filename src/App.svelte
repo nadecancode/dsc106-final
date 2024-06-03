@@ -15,6 +15,7 @@
   import TypeOne from "./Components/TypeOne.svelte";
   import TypeTwo from "./Components/TypeTwo.svelte";
   import Power from "./Components/Power.svelte";
+  import PowerPlay from './Components/PowerPlay.svelte';
 </script>
 
 <Meta />
@@ -27,5 +28,6 @@
 <TypeOne />
 <TypeTwo />
 <Power />
+<PowerPlay />
 <Conclusion />
 <Resources />
