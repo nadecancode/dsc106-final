@@ -50,7 +50,7 @@
 <br />
 
 <p class="body-text">
-    Area Under Red Curve: {1 - $confidenceLevel}
+    Type I Error: {$confidenceLevel}
 </p>
 
 <br />
@@ -63,7 +63,7 @@
 
 <p class="body-text">
     Specifically, {@html katexify(
-    "\P(Type \\; I) = P(Reject \\; \H_0 \\; \|\ \\; \H_0 \\; True) = 1 - \\alpha"
+    "\P(Type \\; I) = P(Reject \\; \H_0 \\; \|\ \\; \H_0 \\; True) = \\alpha"
 )}
 </p>
 

@@ -31102,7 +31102,6 @@ var app = (function () {
     	let t7;
     	let p2;
     	let t8;
-    	let t9_value = 1 - /*$confidenceLevel*/ ctx[0] + "";
     	let t9;
     	let t10;
     	let br1;
@@ -31114,7 +31113,7 @@ var app = (function () {
     	let p4;
     	let t15;
     	let html_tag;
-    	let raw_value = katexify("\P(Type \\; I) = P(Reject \\; \H_0 \\; \|\ \\; \H_0 \\; True) = 1 - \\alpha") + "";
+    	let raw_value = katexify("\P(Type \\; I) = P(Reject \\; \H_0 \\; \|\ \\; \H_0 \\; True) = \\alpha") + "";
     	let t16;
     	let br3;
     	let t17;
@@ -31136,8 +31135,8 @@ var app = (function () {
     			br0 = element("br");
     			t7 = space();
     			p2 = element("p");
-    			t8 = text$1("Area Under Red Curve: ");
-    			t9 = text$1(t9_value);
+    			t8 = text$1("Type I Error: ");
+    			t9 = text$1(/*$confidenceLevel*/ ctx[0]);
     			t10 = space();
     			br1 = element("br");
     			t11 = space();
@@ -31166,16 +31165,16 @@ var app = (function () {
     			add_location(br0, file$3, 49, 0, 1602);
     			attr_dev(p2, "class", "body-text");
     			add_location(p2, file$3, 51, 0, 1612);
-    			add_location(br1, file$3, 55, 0, 1693);
+    			add_location(br1, file$3, 55, 0, 1681);
     			attr_dev(p3, "class", "body-text");
-    			add_location(p3, file$3, 57, 0, 1703);
-    			add_location(br2, file$3, 61, 0, 1941);
+    			add_location(p3, file$3, 57, 0, 1691);
+    			add_location(br2, file$3, 61, 0, 1929);
     			html_tag.a = null;
     			attr_dev(p4, "class", "body-text");
-    			add_location(p4, file$3, 63, 0, 1951);
-    			add_location(br3, file$3, 69, 0, 2105);
+    			add_location(p4, file$3, 63, 0, 1939);
+    			add_location(br3, file$3, 69, 0, 2089);
     			attr_dev(p5, "class", "body-text");
-    			add_location(p5, file$3, 71, 0, 2115);
+    			add_location(p5, file$3, 71, 0, 2099);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -31210,7 +31209,7 @@ var app = (function () {
     			insert_dev(target, p5, anchor);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*$confidenceLevel*/ 1 && t9_value !== (t9_value = 1 - /*$confidenceLevel*/ ctx[0] + "")) set_data_dev(t9, t9_value);
+    			if (dirty & /*$confidenceLevel*/ 1) set_data_dev(t9, /*$confidenceLevel*/ ctx[0]);
     		},
     		i: noop,
     		o: noop,
@@ -31252,8 +31251,8 @@ var app = (function () {
     	return block;
     }
 
-    const meanScore$1 = 69;
-    const std$1 = 14.6;
+    const meanScore$2 = 69;
+    const std$2 = 14.6;
 
     function instance$4($$self, $$props, $$invalidate) {
     	let $confidenceLevel;
@@ -31268,8 +31267,8 @@ var app = (function () {
 
     	onMount(() => {
     		$$invalidate(1, svg = select('#type-one').append('svg').attr('width', 500).attr('height', 325));
-    		const sampleStd = std$1 / Math.sqrt($sampleSize);
-    		drawAndShadeGC(meanScore$1, sampleStd, $confidenceLevel, svg);
+    		const sampleStd = std$2 / Math.sqrt($sampleSize);
+    		drawAndShadeGC(meanScore$2, sampleStd, $confidenceLevel, svg);
     	});
 
     	const writable_props = [];
@@ -31285,8 +31284,8 @@ var app = (function () {
     		select,
     		drawAndShadeGC,
     		katexify,
-    		meanScore: meanScore$1,
-    		std: std$1,
+    		meanScore: meanScore$2,
+    		std: std$2,
     		svg,
     		$confidenceLevel,
     		$sampleSize
@@ -31304,8 +31303,8 @@ var app = (function () {
     		if ($$self.$$.dirty & /*svg, $sampleSize, $confidenceLevel*/ 7) {
     			{
     				if (svg) {
-    					const sampleStd = std$1 / Math.sqrt($sampleSize);
-    					drawAndShadeGC(meanScore$1, sampleStd, $confidenceLevel, svg);
+    					const sampleStd = std$2 / Math.sqrt($sampleSize);
+    					drawAndShadeGC(meanScore$2, sampleStd, $confidenceLevel, svg);
     				}
     			}
     		}
@@ -31362,7 +31361,6 @@ var app = (function () {
     	let t19;
     	let p4;
     	let t20;
-    	let t21_value = 1 - /*beta*/ ctx[1] + "";
     	let t21;
     	let t22;
     	let br3;
@@ -31381,7 +31379,7 @@ var app = (function () {
     			h1.textContent = "Error: Type II";
     			t1 = space();
     			p0 = element("p");
-    			p0.textContent = "Wait.. So you might be thinking: \"If I just choose a sufficiently large confidence level then my Type I error will be minimized\". Well it is technically true, however, you need to also consider the Type II error, which is the probability of keeping your Null Hypothesis while your Alternative Hypothesis is true.";
+    			p0.textContent = "Wait.. So you might be thinking: \"If I just choose a sufficiently small confidence level then my Type I error will be minimized\". Well it is technically true, however, you need to also consider the Type II error, which is the probability of keeping your Null Hypothesis while your Alternative Hypothesis is true.";
     			t3 = space();
     			br0 = element("br");
     			t4 = space();
@@ -31411,8 +31409,8 @@ var app = (function () {
     			div1 = element("div");
     			t19 = space();
     			p4 = element("p");
-    			t20 = text$1("Area Under Blue Curve: ");
-    			t21 = text$1(t21_value);
+    			t20 = text$1("Type II Error: ");
+    			t21 = text$1(/*beta*/ ctx[1]);
     			t22 = space();
     			br3 = element("br");
     			t23 = space();
@@ -31424,38 +31422,38 @@ var app = (function () {
     			p6 = element("p");
     			p6.textContent = "Takeaway: As you increase your confidence level, your Type II error rate also increases :( You are less likely going to get false positive but you are more likely to hit a true negative instead..";
     			attr_dev(h1, "class", "body-header");
-    			add_location(h1, file$2, 37, 0, 957);
+    			add_location(h1, file$2, 37, 0, 953);
     			attr_dev(p0, "class", "body-text");
-    			add_location(p0, file$2, 41, 0, 1012);
-    			add_location(br0, file$2, 45, 0, 1361);
-    			add_location(strong, file$2, 48, 206, 1599);
+    			add_location(p0, file$2, 41, 0, 1008);
+    			add_location(br0, file$2, 45, 0, 1357);
+    			add_location(strong, file$2, 48, 206, 1595);
     			attr_dev(p1, "class", "body-text");
-    			add_location(p1, file$2, 47, 0, 1370);
-    			add_location(br1, file$2, 51, 0, 1715);
+    			add_location(p1, file$2, 47, 0, 1366);
+    			add_location(br1, file$2, 51, 0, 1711);
     			attr_dev(p2, "class", "body-text");
-    			add_location(p2, file$2, 53, 0, 1724);
-    			add_location(br2, file$2, 57, 0, 1865);
+    			add_location(p2, file$2, 53, 0, 1720);
+    			add_location(br2, file$2, 57, 0, 1861);
     			attr_dev(label, "for", "sample");
-    			add_location(label, file$2, 60, 4, 1902);
+    			add_location(label, file$2, 60, 4, 1898);
     			attr_dev(input, "type", "range");
     			attr_dev(input, "min", "0");
     			attr_dev(input, "max", "1");
     			attr_dev(input, "step", "0.01");
-    			add_location(input, file$2, 61, 4, 1953);
-    			add_location(p3, file$2, 62, 4, 2038);
+    			add_location(input, file$2, 61, 4, 1949);
+    			add_location(p3, file$2, 62, 4, 2034);
     			attr_dev(div0, "class", "centered");
-    			add_location(div0, file$2, 59, 0, 1874);
+    			add_location(div0, file$2, 59, 0, 1870);
     			attr_dev(div1, "id", "type-two");
     			attr_dev(div1, "class", "centered");
-    			add_location(div1, file$2, 65, 0, 2092);
+    			add_location(div1, file$2, 65, 0, 2088);
     			attr_dev(p4, "class", "body-text");
-    			add_location(p4, file$2, 68, 0, 2140);
-    			add_location(br3, file$2, 72, 0, 2210);
+    			add_location(p4, file$2, 68, 0, 2136);
+    			add_location(br3, file$2, 72, 0, 2194);
     			attr_dev(p5, "class", "body-text");
-    			add_location(p5, file$2, 74, 0, 2220);
-    			add_location(br4, file$2, 78, 0, 2727);
+    			add_location(p5, file$2, 74, 0, 2204);
+    			add_location(br4, file$2, 78, 0, 2711);
     			attr_dev(p6, "class", "body-text");
-    			add_location(p6, file$2, 80, 0, 2737);
+    			add_location(p6, file$2, 80, 0, 2721);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -31517,7 +31515,7 @@ var app = (function () {
     			}
 
     			if (dirty & /*$confidenceLevel*/ 1) set_data_dev(t17, /*$confidenceLevel*/ ctx[0]);
-    			if (dirty & /*beta*/ 2 && t21_value !== (t21_value = 1 - /*beta*/ ctx[1] + "")) set_data_dev(t21, t21_value);
+    			if (dirty & /*beta*/ 2) set_data_dev(t21, /*beta*/ ctx[1]);
     		},
     		i: noop,
     		o: noop,
@@ -31565,8 +31563,8 @@ var app = (function () {
     	return block;
     }
 
-    const meanScore = 69;
-    const std = 14.6;
+    const meanScore$1 = 69;
+    const std$1 = 14.6;
 
     function instance$3($$self, $$props, $$invalidate) {
     	let $confidenceLevel;
@@ -31581,8 +31579,8 @@ var app = (function () {
 
     	onMount(() => {
     		$$invalidate(2, svg = select('#type-two').append('svg').attr('width', 500).attr('height', 325));
-    		const sampleStd = std / Math.sqrt($sampleSize);
-    		drawAndShadeGC2(meanScore, 68.4, sampleStd, $confidenceLevel, svg);
+    		const sampleStd = std$1 / Math.sqrt($sampleSize);
+    		drawAndShadeGC2(meanScore$1, 68.4, sampleStd, $confidenceLevel, svg);
     	});
 
     	let c, beta;
@@ -31605,8 +31603,8 @@ var app = (function () {
     		drawAndShadeGC2,
     		pnorm,
     		qnorm,
-    		meanScore,
-    		std,
+    		meanScore: meanScore$1,
+    		std: std$1,
     		svg,
     		c,
     		beta,
@@ -31625,15 +31623,16 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*svg, $sampleSize, $confidenceLevel, c*/ 29) {
+    		if ($$self.$$.dirty & /*$sampleSize, svg, $confidenceLevel, c*/ 29) {
     			{
+    				const sampleStd = std$1 / Math.sqrt($sampleSize);
+
     				if (svg) {
-    					const sampleStd = std / Math.sqrt($sampleSize);
-    					drawAndShadeGC2(meanScore, 68.4, sampleStd, $confidenceLevel, svg);
+    					drawAndShadeGC2(meanScore$1, 68.4, sampleStd, $confidenceLevel, svg);
     				}
 
-    				$$invalidate(3, c = qnorm(1 - $confidenceLevel, meanScore, std, false));
-    				$$invalidate(1, beta = pnorm(c, 68.4, std, false));
+    				$$invalidate(3, c = qnorm(1 - $confidenceLevel, meanScore$1, std$1, false));
+    				$$invalidate(1, beta = pnorm(c, 68.4, std$1, false));
     			}
     		}
     	};
@@ -31862,11 +31861,33 @@ var app = (function () {
     	let t1;
     	let p0;
     	let t3;
-    	let br;
+    	let br0;
     	let t4;
     	let p1;
     	let t6;
     	let p2;
+    	let t8;
+    	let div0;
+    	let label;
+    	let t10;
+    	let input;
+    	let t11;
+    	let p3;
+    	let t12;
+    	let t13;
+    	let t14;
+    	let br1;
+    	let t15;
+    	let div1;
+    	let t16;
+    	let p4;
+    	let t17;
+    	let t18_value = 1 - /*beta*/ ctx[1] + "";
+    	let t18;
+    	let t19;
+    	let p5;
+    	let mounted;
+    	let dispose;
 
     	const block = {
     		c: function create() {
@@ -31876,22 +31897,61 @@ var app = (function () {
     			p0 = element("p");
     			p0.textContent = "You might be wondering: How can we lower both Type I and Type II error rates? If I increase my confidence level, then Type II error rate increases but if I decrease my confidence level, my Type I error increases.. There seems to be no way to improve both metrics.. right?";
     			t3 = space();
-    			br = element("br");
+    			br0 = element("br");
     			t4 = space();
     			p1 = element("p");
     			p1.textContent = "No! Turns out the amount of samples we take can also directly influence how powerful our hypothesis test is!";
     			t6 = space();
     			p2 = element("p");
-    			p2.textContent = "Earlier in the article, we have collected 100 samples, but we can take more to be more certain of our hypothesis test :) You can pick a number between 100 and 700 below and observe how the Power changes";
+    			p2.textContent = "Earlier in the article, we have collected 100 samples, but we can take more to be more certain of our hypothesis test :) You can pick a number between 100 and 1000 below and observe how the Power changes";
+    			t8 = space();
+    			div0 = element("div");
+    			label = element("label");
+    			label.textContent = "Sample Size:";
+    			t10 = space();
+    			input = element("input");
+    			t11 = space();
+    			p3 = element("p");
+    			t12 = text$1("Numerical Value: ");
+    			t13 = text$1(/*n*/ ctx[0]);
+    			t14 = space();
+    			br1 = element("br");
+    			t15 = space();
+    			div1 = element("div");
+    			t16 = space();
+    			p4 = element("p");
+    			t17 = text$1("Power: ");
+    			t18 = text$1(t18_value);
+    			t19 = space();
+    			p5 = element("p");
+    			p5.textContent = "Takeaway: Take more samples can help us perform our Hypothesis Tests better, but we need to find a balance between \"took not enough samples\" and \"took too many samples\" since the purpose of sampling is to spend a relatively less effort to gain a better insight on a big population distribution.";
     			attr_dev(h1, "class", "body-header");
-    			add_location(h1, file, 4, 0, 64);
+    			add_location(h1, file, 39, 0, 996);
     			attr_dev(p0, "class", "body-text");
-    			add_location(p0, file, 8, 0, 115);
-    			add_location(br, file, 12, 0, 423);
+    			add_location(p0, file, 43, 0, 1047);
+    			add_location(br0, file, 47, 0, 1355);
     			attr_dev(p1, "class", "body-text");
-    			add_location(p1, file, 14, 0, 433);
+    			add_location(p1, file, 49, 0, 1365);
     			attr_dev(p2, "class", "body-text");
-    			add_location(p2, file, 18, 0, 578);
+    			add_location(p2, file, 53, 0, 1510);
+    			attr_dev(label, "for", "sample");
+    			add_location(label, file, 58, 4, 1778);
+    			attr_dev(input, "type", "range");
+    			attr_dev(input, "min", "100");
+    			attr_dev(input, "max", "1000");
+    			attr_dev(input, "step", "1");
+    			add_location(input, file, 59, 4, 1824);
+    			add_location(p3, file, 60, 4, 1896);
+    			attr_dev(div0, "class", "centered");
+    			add_location(div0, file, 57, 0, 1750);
+    			add_location(br1, file, 63, 0, 1935);
+    			attr_dev(div1, "id", "power-play");
+    			attr_dev(div1, "class", "centered");
+    			add_location(div1, file, 65, 0, 1945);
+    			attr_dev(p4, "class", "body-text");
+    			add_location(p4, file, 68, 0, 1995);
+    			attr_dev(p5, "class", "body-text");
+    			add_location(p5, file, 72, 0, 2049);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -31901,13 +31961,49 @@ var app = (function () {
     			insert_dev(target, t1, anchor);
     			insert_dev(target, p0, anchor);
     			insert_dev(target, t3, anchor);
-    			insert_dev(target, br, anchor);
+    			insert_dev(target, br0, anchor);
     			insert_dev(target, t4, anchor);
     			insert_dev(target, p1, anchor);
     			insert_dev(target, t6, anchor);
     			insert_dev(target, p2, anchor);
+    			insert_dev(target, t8, anchor);
+    			insert_dev(target, div0, anchor);
+    			append_dev(div0, label);
+    			append_dev(div0, t10);
+    			append_dev(div0, input);
+    			set_input_value(input, /*n*/ ctx[0]);
+    			append_dev(div0, t11);
+    			append_dev(div0, p3);
+    			append_dev(p3, t12);
+    			append_dev(p3, t13);
+    			insert_dev(target, t14, anchor);
+    			insert_dev(target, br1, anchor);
+    			insert_dev(target, t15, anchor);
+    			insert_dev(target, div1, anchor);
+    			insert_dev(target, t16, anchor);
+    			insert_dev(target, p4, anchor);
+    			append_dev(p4, t17);
+    			append_dev(p4, t18);
+    			insert_dev(target, t19, anchor);
+    			insert_dev(target, p5, anchor);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input, "change", /*input_change_input_handler*/ ctx[5]),
+    					listen_dev(input, "input", /*input_change_input_handler*/ ctx[5])
+    				];
+
+    				mounted = true;
+    			}
     		},
-    		p: noop,
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*n*/ 1) {
+    				set_input_value(input, /*n*/ ctx[0]);
+    			}
+
+    			if (dirty & /*n*/ 1) set_data_dev(t13, /*n*/ ctx[0]);
+    			if (dirty & /*beta*/ 2 && t18_value !== (t18_value = 1 - /*beta*/ ctx[1] + "")) set_data_dev(t18, t18_value);
+    		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
@@ -31915,11 +32011,23 @@ var app = (function () {
     			if (detaching) detach_dev(t1);
     			if (detaching) detach_dev(p0);
     			if (detaching) detach_dev(t3);
-    			if (detaching) detach_dev(br);
+    			if (detaching) detach_dev(br0);
     			if (detaching) detach_dev(t4);
     			if (detaching) detach_dev(p1);
     			if (detaching) detach_dev(t6);
     			if (detaching) detach_dev(p2);
+    			if (detaching) detach_dev(t8);
+    			if (detaching) detach_dev(div0);
+    			if (detaching) detach_dev(t14);
+    			if (detaching) detach_dev(br1);
+    			if (detaching) detach_dev(t15);
+    			if (detaching) detach_dev(div1);
+    			if (detaching) detach_dev(t16);
+    			if (detaching) detach_dev(p4);
+    			if (detaching) detach_dev(t19);
+    			if (detaching) detach_dev(p5);
+    			mounted = false;
+    			run_all(dispose);
     		}
     	};
 
@@ -31934,17 +32042,81 @@ var app = (function () {
     	return block;
     }
 
+    const meanScore = 69;
+    const std = 14.6;
+
     function instance$1($$self, $$props, $$invalidate) {
+    	let $confidenceLevel;
+    	validate_store(confidenceLevel, 'confidenceLevel');
+    	component_subscribe($$self, confidenceLevel, $$value => $$invalidate(4, $confidenceLevel = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('PowerPlay', slots, []);
+    	let n = 100;
+    	let svg;
+
+    	onMount(() => {
+    		$$invalidate(2, svg = select('#power-play').append('svg').attr('width', 500).attr('height', 325));
+    		const sampleStd = std / Math.sqrt(n);
+    		drawAndShadeGC2(meanScore, 68.4, sampleStd, $confidenceLevel, svg);
+    	});
+
+    	let c, beta;
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<PowerPlay> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$capture_state = () => ({ katexify });
-    	return [];
+    	function input_change_input_handler() {
+    		n = to_number(this.value);
+    		$$invalidate(0, n);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		katexify,
+    		onMount,
+    		select,
+    		confidenceLevel,
+    		sampleSize,
+    		drawAndShadeGC2,
+    		pnorm,
+    		qnorm,
+    		meanScore,
+    		std,
+    		n,
+    		svg,
+    		c,
+    		beta,
+    		$confidenceLevel
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('n' in $$props) $$invalidate(0, n = $$props.n);
+    		if ('svg' in $$props) $$invalidate(2, svg = $$props.svg);
+    		if ('c' in $$props) $$invalidate(3, c = $$props.c);
+    		if ('beta' in $$props) $$invalidate(1, beta = $$props.beta);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*n, svg, $confidenceLevel, c*/ 29) {
+    			{
+    				const sampleStd = std / Math.sqrt(n);
+
+    				if (svg) {
+    					drawAndShadeGC2(meanScore, 68.4, sampleStd, $confidenceLevel, svg);
+    				}
+
+    				$$invalidate(3, c = qnorm(1 - $confidenceLevel, meanScore, sampleStd, false));
+    				$$invalidate(1, beta = pnorm(c, 68.4, sampleStd, false));
+    			}
+    		}
+    	};
+
+    	return [n, beta, svg, c, $confidenceLevel, input_change_input_handler];
     }
 
     class PowerPlay extends SvelteComponentDev {
