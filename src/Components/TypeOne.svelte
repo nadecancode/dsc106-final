@@ -50,7 +50,7 @@
 <br />
 
 <p class="body-text">
-    Type I Error: {$confidenceLevel}
+    Type I Error: {1 - $confidenceLevel}
 </p>
 
 <br />

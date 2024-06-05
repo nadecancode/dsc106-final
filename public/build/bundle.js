@@ -31102,6 +31102,7 @@ var app = (function () {
     	let t7;
     	let p2;
     	let t8;
+    	let t9_value = 1 - /*$confidenceLevel*/ ctx[0] + "";
     	let t9;
     	let t10;
     	let br1;
@@ -31136,7 +31137,7 @@ var app = (function () {
     			t7 = space();
     			p2 = element("p");
     			t8 = text$1("Type I Error: ");
-    			t9 = text$1(/*$confidenceLevel*/ ctx[0]);
+    			t9 = text$1(t9_value);
     			t10 = space();
     			br1 = element("br");
     			t11 = space();
@@ -31165,16 +31166,16 @@ var app = (function () {
     			add_location(br0, file$3, 49, 0, 1602);
     			attr_dev(p2, "class", "body-text");
     			add_location(p2, file$3, 51, 0, 1612);
-    			add_location(br1, file$3, 55, 0, 1681);
+    			add_location(br1, file$3, 55, 0, 1685);
     			attr_dev(p3, "class", "body-text");
-    			add_location(p3, file$3, 57, 0, 1691);
-    			add_location(br2, file$3, 61, 0, 1929);
+    			add_location(p3, file$3, 57, 0, 1695);
+    			add_location(br2, file$3, 61, 0, 1933);
     			html_tag.a = null;
     			attr_dev(p4, "class", "body-text");
-    			add_location(p4, file$3, 63, 0, 1939);
-    			add_location(br3, file$3, 69, 0, 2089);
+    			add_location(p4, file$3, 63, 0, 1943);
+    			add_location(br3, file$3, 69, 0, 2093);
     			attr_dev(p5, "class", "body-text");
-    			add_location(p5, file$3, 71, 0, 2099);
+    			add_location(p5, file$3, 71, 0, 2103);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -31209,7 +31210,7 @@ var app = (function () {
     			insert_dev(target, p5, anchor);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*$confidenceLevel*/ 1) set_data_dev(t9, /*$confidenceLevel*/ ctx[0]);
+    			if (dirty & /*$confidenceLevel*/ 1 && t9_value !== (t9_value = 1 - /*$confidenceLevel*/ ctx[0] + "")) set_data_dev(t9, t9_value);
     		},
     		i: noop,
     		o: noop,
@@ -31361,6 +31362,7 @@ var app = (function () {
     	let t19;
     	let p4;
     	let t20;
+    	let t21_value = 1 - /*beta*/ ctx[1] + "";
     	let t21;
     	let t22;
     	let br3;
@@ -31379,7 +31381,7 @@ var app = (function () {
     			h1.textContent = "Error: Type II";
     			t1 = space();
     			p0 = element("p");
-    			p0.textContent = "Wait.. So you might be thinking: \"If I just choose a sufficiently small confidence level then my Type I error will be minimized\". Well it is technically true, however, you need to also consider the Type II error, which is the probability of keeping your Null Hypothesis while your Alternative Hypothesis is true.";
+    			p0.textContent = "Wait.. So you might be thinking: \"If I just choose a sufficiently big confidence level then my Type I error will be minimized\". Well it is technically true, however, you need to also consider the Type II error, which is the probability of keeping your Null Hypothesis while your Alternative Hypothesis is true.";
     			t3 = space();
     			br0 = element("br");
     			t4 = space();
@@ -31410,7 +31412,7 @@ var app = (function () {
     			t19 = space();
     			p4 = element("p");
     			t20 = text$1("Type II Error: ");
-    			t21 = text$1(/*beta*/ ctx[1]);
+    			t21 = text$1(t21_value);
     			t22 = space();
     			br3 = element("br");
     			t23 = space();
@@ -31425,35 +31427,35 @@ var app = (function () {
     			add_location(h1, file$2, 37, 0, 953);
     			attr_dev(p0, "class", "body-text");
     			add_location(p0, file$2, 41, 0, 1008);
-    			add_location(br0, file$2, 45, 0, 1357);
-    			add_location(strong, file$2, 48, 206, 1595);
+    			add_location(br0, file$2, 45, 0, 1355);
+    			add_location(strong, file$2, 48, 206, 1593);
     			attr_dev(p1, "class", "body-text");
-    			add_location(p1, file$2, 47, 0, 1366);
-    			add_location(br1, file$2, 51, 0, 1711);
+    			add_location(p1, file$2, 47, 0, 1364);
+    			add_location(br1, file$2, 51, 0, 1709);
     			attr_dev(p2, "class", "body-text");
-    			add_location(p2, file$2, 53, 0, 1720);
-    			add_location(br2, file$2, 57, 0, 1861);
+    			add_location(p2, file$2, 53, 0, 1718);
+    			add_location(br2, file$2, 57, 0, 1859);
     			attr_dev(label, "for", "sample");
-    			add_location(label, file$2, 60, 4, 1898);
+    			add_location(label, file$2, 60, 4, 1896);
     			attr_dev(input, "type", "range");
     			attr_dev(input, "min", "0");
     			attr_dev(input, "max", "1");
     			attr_dev(input, "step", "0.01");
-    			add_location(input, file$2, 61, 4, 1949);
-    			add_location(p3, file$2, 62, 4, 2034);
+    			add_location(input, file$2, 61, 4, 1947);
+    			add_location(p3, file$2, 62, 4, 2032);
     			attr_dev(div0, "class", "centered");
-    			add_location(div0, file$2, 59, 0, 1870);
+    			add_location(div0, file$2, 59, 0, 1868);
     			attr_dev(div1, "id", "type-two");
     			attr_dev(div1, "class", "centered");
-    			add_location(div1, file$2, 65, 0, 2088);
+    			add_location(div1, file$2, 65, 0, 2086);
     			attr_dev(p4, "class", "body-text");
-    			add_location(p4, file$2, 68, 0, 2136);
-    			add_location(br3, file$2, 72, 0, 2194);
+    			add_location(p4, file$2, 68, 0, 2134);
+    			add_location(br3, file$2, 72, 0, 2196);
     			attr_dev(p5, "class", "body-text");
-    			add_location(p5, file$2, 74, 0, 2204);
-    			add_location(br4, file$2, 78, 0, 2711);
+    			add_location(p5, file$2, 74, 0, 2206);
+    			add_location(br4, file$2, 78, 0, 2713);
     			attr_dev(p6, "class", "body-text");
-    			add_location(p6, file$2, 80, 0, 2721);
+    			add_location(p6, file$2, 80, 0, 2723);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -31515,7 +31517,7 @@ var app = (function () {
     			}
 
     			if (dirty & /*$confidenceLevel*/ 1) set_data_dev(t17, /*$confidenceLevel*/ ctx[0]);
-    			if (dirty & /*beta*/ 2) set_data_dev(t21, /*beta*/ ctx[1]);
+    			if (dirty & /*beta*/ 2 && t21_value !== (t21_value = 1 - /*beta*/ ctx[1] + "")) set_data_dev(t21, t21_value);
     		},
     		i: noop,
     		o: noop,

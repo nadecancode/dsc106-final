@@ -40,7 +40,7 @@
 </h1>
 
 <p class="body-text">
-    Wait.. So you might be thinking: "If I just choose a sufficiently small confidence level then my Type I error will be minimized". Well it is technically true, however, you need to also consider the Type II error, which is the probability of keeping your Null Hypothesis while your Alternative Hypothesis is true.
+    Wait.. So you might be thinking: "If I just choose a sufficiently big confidence level then my Type I error will be minimized". Well it is technically true, however, you need to also consider the Type II error, which is the probability of keeping your Null Hypothesis while your Alternative Hypothesis is true.
 </p>
 
 <br/>
@@ -67,7 +67,7 @@
 </div>
 
 <p class="body-text">
-    Type II Error: {beta}
+    Type II Error: {1 - beta}
 </p>
 
 <br />
